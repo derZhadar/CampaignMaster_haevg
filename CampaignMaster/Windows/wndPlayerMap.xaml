@@ -1,0 +1,264 @@
+﻿<Window x:Class="CampaignMaster.Windows.wndPlayerMap"
+        x:Name="PlayerMap"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CampaignMaster.Windows"
+        xmlns:models="clr-namespace:CampaignMaster.ViewModels"
+        xmlns:conv="clr-namespace:SamCorp.WPF.Converter;assembly=SamCorp.WPF"
+        xmlns:controls="clr-namespace:CampaignMaster.Controls"
+        xmlns:misc="clr-namespace:CampaignMaster.Misc"
+        mc:Ignorable="d"
+        Title="wndPlayerMap" Height="1080" Width="1920" ResizeMode="CanResize" WindowStartupLocation="Manual" Loaded="Window_Loaded" Topmost="True" Background="Transparent">
+    <Window.DataContext>
+        <models:vmDrawingBoard/>
+    </Window.DataContext>
+    <Grid>
+        <Grid>
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="{Binding PlayerMapScaleX}" ScaleY="{Binding PlayerMapScaleY}"/>
+                    <TranslateTransform X="{Binding PlayerMapTranslateX}" Y="{Binding PlayerMapTranslateY}"/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Image IsHitTestVisible="False" Source="/CampaignMaster;component/Resources/Images/Backgrounds/NewDrawingBoard_2.jpg" Stretch="Fill" Margin="0,0,0,0"/>
+
+            <Grid Width="{Binding PaperWidth}" Height="{Binding PaperHeight}" Background="Transparent" Margin="-20,0,0,0">
+                <Grid>
+                    <Border BorderThickness="0" BorderBrush="Black" RenderTransform="{Binding BoardTransform}"/>
+                    <InkCanvas x:Name="inkScratchBoard"
+                           Background="{x:Null}"
+                           RenderTransform="{Binding BoardTransform}"
+                           EditingMode="None"
+                           Strokes="{Binding Scratches}"
+                           Opacity="{Binding DrawingBoardOpacity}">
+                        <InkCanvas.Style>
+                            <Style TargetType="InkCanvas">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ScratchImage}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </InkCanvas.Style>
+                        <ItemsControl ItemsSource="{Binding ScratchShapesCloned}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </InkCanvas>
+                    <Image IsHitTestVisible="False" RenderTransform="{Binding BoardTransform}" Source="{Binding Path=(models:vmDrawingBoard.ScratchImage)}" Stretch="Fill">
+                        <Image.OpacityMask>
+                            <VisualBrush Visual="{Binding ElementName=inkScratchBoard}"/>
+                        </Image.OpacityMask>
+                    </Image>
+                    <Image IsHitTestVisible="False" RenderTransform="{Binding BoardTransform}" Source="{Binding Path=(models:vmDrawingBoard.BackgroundImage)}" Stretch="Uniform"/>
+                    <Image x:Name="imgTell" Visibility="{Binding ShowTellVisible}" IsHitTestVisible="False" RenderTransform="{Binding BoardTransform}" Source="{Binding Path=(models:vmDrawingBoard.TellImage)}" Stretch="Uniform"/>
+                    <Image x:Name="imgWorld" Visibility="{Binding WorldMapVisible}" IsHitTestVisible="False" RenderTransform="{Binding BoardTransform}" Source="/CampaignMaster;component/Resources/Images/Backgrounds/Khorvaire.jpg" Stretch="Uniform"/>
+                    <InkCanvas x:Name="inkDrawingBoard"
+                           Background="{x:Null}"
+                           RenderTransform="{Binding BoardTransform}"
+                           Strokes="{Binding Strokes}"
+                           EditingMode="None"
+                           Opacity="{Binding DrawingBoardOpacity}">
+                        <ItemsControl ItemsSource="{Binding ShapesCloned}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </InkCanvas>
+
+                    <Grid Opacity="{Binding Path=(models:vmDrawingBoard.DrawingBoardOpacity)}">
+                        <Border x:Name="brdGrid" IsHitTestVisible="False" Opacity="{Binding Path=(models:vmDrawingBoard.GridOpacityPlayer)}">
+                            <Border.Background>
+                                <DrawingBrush TileMode="Tile" Viewport="{Binding Path=(models:vmDrawingBoard.GridSize)}" ViewportUnits="Absolute">
+                                    <DrawingBrush.Drawing>
+                                        <GeometryDrawing>
+                                            <GeometryDrawing.Geometry>
+                                                <RectangleGeometry Rect="0,0,100,100"/>
+                                            </GeometryDrawing.Geometry>
+                                            <GeometryDrawing.Pen>
+                                                <Pen Brush="{Binding Path=(models:vmDrawingBoard.GridBrush)}" Thickness="1"/>
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                    </DrawingBrush.Drawing>
+                                </DrawingBrush>
+                            </Border.Background>
+                        </Border>
+                    </Grid>
+
+                    <Canvas RenderTransform="{Binding BoardTransform}">
+                        <!--<Ellipse x:Name="mouse" IsHitTestVisible="False" Width="10" Height="10" Stroke="Black" Fill="Gold" Canvas.Left="{Binding MousePosition.X}" Canvas.Top="{Binding MousePosition.Y}"/>-->
+                    </Canvas>
+                    <controls:ctlCalendar Visibility="{Binding ElementName=PlayerMap, Path=DataContext.CalendarVisible, Converter={conv:BooleanToVisibility} }" Width="1240" Height="900" ShowButtons="False"/>
+                </Grid>
+            </Grid>
+
+            <ItemsControl HorizontalAlignment="Right" VerticalAlignment="Top" Margin="30" Background="Transparent" ItemsSource="{Binding CombatOrder}" ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Hidden" BorderThickness="0">
+                <ItemsControl.Style>
+                    <Style TargetType="ItemsControl">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CombatOrder.Count, Converter={conv:LargerThanConverter}, ConverterParameter=9}" Value="True">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ItemsControl.Style>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Vertical" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="100" Width="100" Margin="0,0,0,5">
+                            <Border x:Name="brdMask" CornerRadius="100" BorderBrush="{Binding Color}" BorderThickness="7">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding CharacterImage}"/>
+                                </Border.Background>
+                            </Border>
+                            <Border x:Name="brdIsActiveCombatant" Visibility="Hidden" CornerRadius="100" Background="DodgerBlue" Opacity="0.3" BorderBrush="Transparent" BorderThickness="0"/>
+                            <Button Background="Transparent" Opacity="0.6" BorderBrush="Transparent" BorderThickness="0" Command="{Binding CommandToggleDead}">
+                                <Button.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=brdMask}"/>
+                                </Button.OpacityMask>
+                            </Button>
+
+                            <Image Visibility="{Binding IsPoisoned, Converter={conv:BooleanToVisibility}}" IsHitTestVisible="False" Source="/CampaignMaster;component/Resources/Images/Icons/Status_Poisoned.png" Opacity="0.5"/>
+                            <Image Visibility="{Binding IsDazed, Converter={conv:BooleanToVisibility}}" IsHitTestVisible="False" Source="/CampaignMaster;component/Resources/Images/Icons/Status_Dazed.png"/>
+                            <Image Visibility="{Binding IsEnchanted, Converter={conv:BooleanToVisibility}}" IsHitTestVisible="False" Source="/CampaignMaster;component/Resources/Images/Icons/Status_Enchanted.png"/>
+                            <Image Visibility="{Binding IsBurning, Converter={conv:BooleanToVisibility}}" IsHitTestVisible="False" Source="/CampaignMaster;component/Resources/Images/Icons/Status_Burning.png" Opacity="0.5"/>
+
+                            <Grid x:Name="grdIsDead" Visibility="Hidden">
+                                <Border CornerRadius="100" Background="Red" Opacity="0.3" BorderBrush="Transparent" BorderThickness="0"/>
+                                <Polyline Stroke="Red" StrokeThickness="7" Points="0,0 100,100"/>
+                                <Polyline Stroke="Red" StrokeThickness="7" Points="100,0 0,100"/>
+                            </Grid>
+                        </Grid>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsActiveCombatant}" Value="True">
+                                <Setter Property="BorderBrush" Value="DodgerBlue" TargetName="brdMask" />
+                                <Setter Property="Visibility" Value="Visible" TargetName="brdIsActiveCombatant" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsDead}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" TargetName="grdIsDead" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <ItemsControl HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30" Background="Transparent" ItemsSource="{Binding CombatOrder}" ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Hidden" BorderThickness="0">
+                <ItemsControl.Style>
+                    <Style TargetType="ItemsControl">
+                        <Setter Property="Visibility" Value="Hidden"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CombatOrder.Count, Converter={conv:LargerThanConverter}, ConverterParameter=9}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ItemsControl.Style>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Height="100" Width="100" Margin="0,0,0,5">
+                            <Border x:Name="brdMask" CornerRadius="100" BorderBrush="{Binding Color}" BorderThickness="7">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding CharacterImage}"/>
+                                </Border.Background>
+                            </Border>
+                            <Border x:Name="brdIsActiveCombatant" Visibility="Hidden" CornerRadius="100" Background="DodgerBlue" Opacity="0.3" BorderBrush="Transparent" BorderThickness="0"/>
+                            <Button Background="Transparent" Opacity="0.6" BorderBrush="Transparent" BorderThickness="0" Command="{Binding CommandToggleDead}">
+                                <Button.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=brdMask}"/>
+                                </Button.OpacityMask>
+                            </Button>
+
+                            <Image Visibility="{Binding IsPoisoned, Converter={conv:BooleanToVisibility}}" IsHitTestVisible="False" Source="/CampaignMaster;component/Resources/Images/Icons/Status_Poisoned.png" Opacity="0.5"/>
+                            <Image Visibility="{Binding IsDazed, Converter={conv:BooleanToVisibility}}" IsHitTestVisible="False" Source="/CampaignMaster;component/Resources/Images/Icons/Status_Dazed.png"/>
+                            <Image Visibility="{Binding IsEnchanted, Converter={conv:BooleanToVisibility}}" IsHitTestVisible="False" Source="/CampaignMaster;component/Resources/Images/Icons/Status_Enchanted.png"/>
+                            <Image Visibility="{Binding IsBurning, Converter={conv:BooleanToVisibility}}" IsHitTestVisible="False" Source="/CampaignMaster;component/Resources/Images/Icons/Status_Burning.png" Opacity="0.5"/>
+
+                            <Grid x:Name="grdIsDead" Visibility="Hidden">
+                                <Border CornerRadius="100" Background="Red" Opacity="0.3" BorderBrush="Transparent" BorderThickness="0"/>
+                                <Polyline Stroke="Red" StrokeThickness="7" Points="0,0 100,100"/>
+                                <Polyline Stroke="Red" StrokeThickness="7" Points="100,0 0,100"/>
+                            </Grid>
+                        </Grid>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsActiveCombatant}" Value="True">
+                                <Setter Property="BorderBrush" Value="DodgerBlue" TargetName="brdMask" />
+                                <Setter Property="Visibility" Value="Visible" TargetName="brdIsActiveCombatant" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsDead}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" TargetName="grdIsDead" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            
+        </Grid>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Border>
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Setter Property="Grid.Row" Value="0"/>
+                        <Setter Property="Grid.RowSpan" Value="1"/>
+                        <Setter Property="Grid.Column" Value="0"/>
+                        <Setter Property="Grid.ColumnSpan" Value="1"/>
+                        <Setter Property="BorderThickness" Value="20"/>
+                        <Setter Property="BorderBrush" Value="{Binding ActiveCombatant.Color}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ActiveCombatant.CombatIndicatorAnchor}" Value="{x:Static misc:CharacterCombatIndicatorAnchor.TopLeft}">
+                                <Setter Property="BorderThickness" Value="20,20,0,0"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ActiveCombatant.CombatIndicatorAnchor}" Value="{x:Static misc:CharacterCombatIndicatorAnchor.TopRight}">
+                                <Setter Property="Grid.Column" Value="1"/>
+                                <Setter Property="BorderThickness" Value="0,20,20,0"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ActiveCombatant.CombatIndicatorAnchor}" Value="{x:Static misc:CharacterCombatIndicatorAnchor.BottomRight}">
+                                <Setter Property="Grid.Row" Value="3"/>
+                                <Setter Property="Grid.Column" Value="1"/>
+                                <Setter Property="BorderThickness" Value="0,0,20,20"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ActiveCombatant.CombatIndicatorAnchor}" Value="{x:Static misc:CharacterCombatIndicatorAnchor.BottomLeft}">
+                                <Setter Property="Grid.Row" Value="3"/>
+                                <Setter Property="BorderThickness" Value="20,0,0,20"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ActiveCombatant.CombatIndicatorAnchor}" Value="{x:Static misc:CharacterCombatIndicatorAnchor.None}">
+                                <Setter Property="Grid.RowSpan" Value="4"/>
+                                <Setter Property="Grid.ColumnSpan" Value="2"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+            </Border>
+
+        </Grid>
+    </Grid>
+</Window>

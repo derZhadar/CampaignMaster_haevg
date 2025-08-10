@@ -1,0 +1,235 @@
+﻿<Window x:Class="CampaignMaster.Windows.wndCampaignMaster"
+        x:Name="wndDrawingBoard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CampaignMaster.Windows"
+        xmlns:models="clr-namespace:CampaignMaster.ViewModels"
+        xmlns:controls="clr-namespace:CampaignMaster.Controls"
+        xmlns:views="clr-namespace:CampaignMaster.Controls.Views"
+        xmlns:misc="clr-namespace:CampaignMaster.Misc"
+        xmlns:samctl="clr-namespace:SamCorp.WPF.Controls;assembly=SamCorp.WPF"
+        xmlns:samconv="clr-namespace:SamCorp.WPF.Converter;assembly=SamCorp.WPF"
+        mc:Ignorable="d"
+        Title="wndCampaignMaster"
+        WindowStartupLocation="Manual" 
+        ResizeMode="NoResize" 
+        PreviewKeyDown="WndCampaignMaster_OnPreviewKeyDown"
+        Icon="/CampaignMaster;component/Resources/Images/Icons/CampaignMaster.ico" WindowState="Maximized" WindowStyle="None" IsEnabled="True" DataContextChanged="Window_DataContextChanged">
+    <Window.DataContext>
+        <models:vmDrawingBoard/>
+    </Window.DataContext>
+
+    <Viewbox>
+        <Grid x:Name="gridContent" Height="1600" Width="2400">
+            <Grid.Background>
+                <ImageBrush ImageSource="/CampaignMaster;component/Resources/Images/Backgrounds/NewDrawingBoard.jpg"/>
+            </Grid.Background>
+
+            <Image IsHitTestVisible="False" Height="1730" Source="/CampaignMaster;component/Resources/Images/Backgrounds/NewDrawingBoard.jpg" Stretch="Fill" Margin="0,0,-468,144">
+                <Image.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="1.03" ScaleX="1"/>
+                        <TranslateTransform X="0"/>
+                    </TransformGroup>
+                </Image.RenderTransform>
+            </Image>
+            <!--<Border x:Name="brdMaskDrawBoard" Background="Black" Width="{Binding PaperWidth}" Height="{Binding PaperHeight}" RenderTransformOrigin="0.5,0.5">
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="1.25" ScaleX="1.25"/>
+                        <TranslateTransform X="-120" />
+                    </TransformGroup>
+                </Border.RenderTransform>
+            </Border>-->
+            <Image IsHitTestVisible="False" Source="/CampaignMaster;component/Resources/Images/Backgrounds/NewDrawingBoard_3.jpg" Stretch="Fill" Margin="-100,100,80,100"/>
+
+            <Grid x:Name="grdDrawingBoard" Background="Transparent" Width="{Binding PaperWidth}" Height="{Binding PaperHeight}" RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="1.25" ScaleX="1.25"/>
+                        <TranslateTransform X="-120" />
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <!--<Grid.OpacityMask>
+                    <VisualBrush Visual="{Binding ElementName=brdMaskDrawBoard}"/>
+                </Grid.OpacityMask>-->
+                <!--<Image Source="/CampaignMaster;component/Resources/Images/Backgrounds/Drawingboard_Paper.jpg" Opacity="0.5" Stretch="Fill"/>-->
+                <Grid ManipulationStarting="InkDrawingBoard_ManipulationStarting"
+                  ManipulationDelta="InkDrawingBoard_ManipulationDelta"
+                  IsManipulationEnabled="True">
+                    <Border BorderThickness="0" BorderBrush="Black" RenderTransform="{Binding BoardTransform}"/>
+                    <InkCanvas x:Name="inkScratchBoard"
+                           Background="{x:Null}"
+                           RenderTransform="{Binding BoardTransform}"
+                           EditingMode="Ink"
+                           Strokes="{Binding Scratches}"
+                           Gesture="InkDrawingBoard_Gesture"
+                           PreviewStylusDown="InkDrawingBoard_PreviewStylusDown"
+                           PreviewStylusOutOfRange="InkDrawingBoard_PreviewStylusOutOfRange"
+                           PreviewMouseRightButtonDown="InkDrawingBoard_PreviewMouseRightButtonDown"
+                           PreviewMouseRightButtonUp="InkDrawingBoard_PreviewMouseRightButtonUp"
+                           Opacity="{Binding DrawingBoardOpacity}"
+                           EditingModeInverted="EraseByPoint">
+                        <InkCanvas.DefaultDrawingAttributes>
+                            <DrawingAttributes FitToCurve="False" IgnorePressure="True" Width="5" Height="5"/>
+                        </InkCanvas.DefaultDrawingAttributes>
+                        <InkCanvas.Style>
+                            <Style TargetType="InkCanvas">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ScratchImage}" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </InkCanvas.Style>
+                        <ItemsControl ItemsSource="{Binding ScratchShapes}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </InkCanvas>
+                    <Image IsHitTestVisible="False" RenderTransform="{Binding BoardTransform}" Source="{Binding Path=(models:vmDrawingBoard.ScratchImage)}" Stretch="Fill">
+                        <Image.OpacityMask>
+                            <VisualBrush Visual="{Binding ElementName=inkScratchBoard}"/>
+                        </Image.OpacityMask>
+                    </Image>
+                    <Image IsHitTestVisible="False" Opacity="0.3" RenderTransform="{Binding BoardTransform}" Source="{Binding Path=(models:vmDrawingBoard.ScratchImage)}" Stretch="Fill">
+                        <Image.Style>
+                            <Style TargetType="Image">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding DrawingBoardOpacity}" Value="0">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Image.Style>
+                    </Image>
+                    <Image IsHitTestVisible="False" RenderTransform="{Binding BoardTransform}" Source="{Binding Path=(models:vmDrawingBoard.BackgroundImage)}" Stretch="Uniform"/>
+                    <Image x:Name="imgTell" Visibility="{Binding ShowTellVisible}" IsHitTestVisible="False" RenderTransform="{Binding BoardTransform}" Source="{Binding Path=(models:vmDrawingBoard.TellImage)}" Stretch="Uniform"/>
+                    <Image x:Name="imgWorld" Visibility="{Binding WorldMapVisible}" IsHitTestVisible="False" RenderTransform="{Binding BoardTransform}" Source="/CampaignMaster;component/Resources/Images/Backgrounds/Khorvaire.jpg" Stretch="Uniform"/>
+                    <InkCanvas x:Name="inkDrawingBoard"
+                           Background="{x:Null}"
+                           IsHitTestVisible="{Binding DrawMode, Converter={misc:DrawModeIsNotScratchValueConverter}}"
+                           RenderTransform="{Binding BoardTransform}"
+                           Strokes="{Binding Strokes}"
+                           EditingMode="ink"
+                           IsManipulationEnabled="False"
+                           PreviewStylusDown="InkDrawingBoard_PreviewStylusDown"
+                           PreviewStylusOutOfRange="InkDrawingBoard_PreviewStylusOutOfRange"
+                           PreviewMouseRightButtonDown="InkDrawingBoard_PreviewMouseRightButtonDown"
+                           PreviewMouseRightButtonUp="InkDrawingBoard_PreviewMouseRightButtonUp"
+                           Gesture="InkDrawingBoard_Gesture"
+                           StrokeCollected="InkDrawingBoard_StrokeCollected"
+                           Opacity="{Binding DrawingBoardOpacity}" EditingModeInverted="EraseByStroke">
+                        <InkCanvas.DefaultDrawingAttributes>
+                            <DrawingAttributes FitToCurve="True" IgnorePressure="True" Width="5" Height="5"/>
+                        </InkCanvas.DefaultDrawingAttributes>
+
+                        <ItemsControl ItemsSource="{Binding Shapes}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </InkCanvas>
+
+                    <Grid Opacity="{Binding DrawingBoardOpacity}">
+                        <Border x:Name="brdGrid" Visibility="Hidden" IsHitTestVisible="False" Opacity="{Binding Path=(models:vmDrawingBoard.GridOpacity)}">
+                            <Border.Background>
+                                <DrawingBrush TileMode="Tile" Viewport="{Binding Path=(models:vmDrawingBoard.GridSize)}" ViewportUnits="Absolute">
+                                    <DrawingBrush.Drawing>
+                                        <GeometryDrawing>
+                                            <GeometryDrawing.Geometry>
+                                                <RectangleGeometry Rect="0,0,100,100"/>
+                                            </GeometryDrawing.Geometry>
+                                            <GeometryDrawing.Pen>
+                                                <Pen Brush="{Binding Path=(models:vmDrawingBoard.GridBrush)}" Thickness="1"/>
+                                            </GeometryDrawing.Pen>
+                                        </GeometryDrawing>
+                                    </DrawingBrush.Drawing>
+                                </DrawingBrush>
+                            </Border.Background>
+                        </Border>
+                    </Grid>
+
+                </Grid>
+            </Grid>
+
+            <controls:ctlInkToolbar x:Name="ToolbarInk" Visibility="Hidden" Margin="87,0"  HorizontalAlignment="Right" PenSize="{Binding DataContext.PenSize, Mode=TwoWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" DrawingBoard="{Binding ElementName=inkDrawingBoard}" DrawMode="{Binding DataContext.DrawMode, Mode=TwoWay, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
+            <controls:ctlGridToolbar x:Name="ToolbarGrid" Visibility="Hidden" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="-532,0" Width="1150" RenderTransformOrigin="0.5,0.5">
+                <controls:ctlGridToolbar.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform/>
+                        <RotateTransform Angle="90"/>
+                        <ScaleTransform ScaleX="1.25" ScaleY="1.25"/>
+                    </TransformGroup>
+                </controls:ctlGridToolbar.RenderTransform>
+            </controls:ctlGridToolbar>
+
+            <controls:ctlAudioPlayer x:Name="ToolbarAudio" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20"/>
+            <controls:CharactersToolBar x:Name="ToolbarCharacters" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,0,338,0"/>
+            <samctl:SamButton x:Name="btnBattle" Visibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20" CornerRadius="100" Height="100" Width="100" Background="Gainsboro" BorderBrush="Black" BorderThickness="5" Click="ButtonBase_OnClick">
+                <Image Margin="14" Source="/CampaignMaster;component/Resources/Images/Icons/battle.png"/>
+            </samctl:SamButton>
+            <samctl:SamButton x:Name="btnCalendar" Visibility="Hidden" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="18,18" CornerRadius="100" Height="50" Width="50" Background="#333" BorderBrush="Goldenrod" BorderThickness="5" Command="{Binding CommandToggleCalendar}">
+                <Image Margin="6" Source="/CampaignMaster;component/Resources/Images/Icons/icon_hourglass.png"/>
+            </samctl:SamButton>
+            <samctl:SamButton x:Name="btnSettings" Visibility="Hidden" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="18,18" CornerRadius="100" Height="50" Width="50" Background="{StaticResource Toolbar.Background}" HoverBackground="LightSkyBlue" BorderBrush="Gainsboro" BorderThickness="5" FontFamily="Segoe UI Symbol" Content="&#xE115;" Foreground="Gainsboro" FontSize="25" Click="BtnSettings_OnClick"/>
+            <!--<samctl:SamButton x:Name="btnCampaign" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20" Width="100" Height="100" CornerRadius="100" Background="PeachPuff" BorderBrush="PapayaWhip" BorderThickness="5" Click="BtnCampaign_OnClick">
+            <Image Margin="0" Source="/CampaignMaster;component/Resources/Images/Icons/icon_campaign.png"/>
+        </samctl:SamButton>-->
+
+            <controls:ctlCalendar x:Name="ctlCalendar" Visibility="{Binding ElementName=wndDrawingBoard, Path=DataContext.CalendarVisible, Converter={samconv:BooleanToVisibility} }" Width="1340" Height="1200"/>
+
+            <controls:NameGenerator x:Name="ToolbarNameGenerator" Width="1550" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,400,24" Visibility="Hidden"/>
+            <controls:ctlRandomMapGeneratorToolBar x:Name="ToolbarMapGenerator" Visibility="Hidden" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,248,22"/>
+
+            <Canvas>
+                <Grid x:Name="PolygonContextMenu" Width="260" Height="260" Visibility="Hidden">
+                    <Grid.RenderTransform>
+                        <TranslateTransform X="518" Y="513"/>
+                    </Grid.RenderTransform>
+
+                    <!--<Border CornerRadius="100" Width="200" Height="200" BorderThickness="2" BorderBrush="Black"/>-->
+
+                    <Grid Width="70" Height="70" VerticalAlignment="Top">
+                        <Border CornerRadius="100" Background="#66000000"/>
+                        <samctl:SamButton CornerRadius="100" Margin="10" FontFamily="Segoe UI Symbol" FontSize="32" Content="&#xE107;" Background="LightCoral" BorderBrush="Black" BorderThickness="3" Click="DeletePolyClick"/>
+                    </Grid>
+
+                    <Grid Width="70" Height="70" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,25,25,0">
+                        <Border CornerRadius="100" Background="#66000000"/>
+                        <samctl:SamButton CornerRadius="100" Margin="10" RenderTransformOrigin="0.5 0.5" FontFamily="Segoe UI Symbol" FontSize="26" Content="&#xE169;" Background="DarkSeaGreen" BorderBrush="{StaticResource PaperBrown}" Foreground="{StaticResource PaperBrown}" BorderThickness="3" Click="IncreasePolyZClick">
+                            <samctl:SamButton.RenderTransform>
+                                <RotateTransform Angle="180"/>
+                            </samctl:SamButton.RenderTransform>
+                        </samctl:SamButton>
+                    </Grid>
+
+                    <Grid Width="70" Height="70" HorizontalAlignment="Right">
+                        <Border CornerRadius="100" Background="#66000000"/>
+                        <samctl:SamButton CornerRadius="100" Margin="10" FontFamily="Segoe UI Symbol" FontSize="26" Content="&#xE169;" Background="PaleGoldenrod" BorderBrush="{StaticResource PaperBrown}" Foreground="{StaticResource PaperBrown}" BorderThickness="3" Click="DecreasePolyZClick"/>
+                    </Grid>
+
+                </Grid>
+            </Canvas>
+
+            <views:ctlFolderImages x:Name="viewFolderImages" Direction="Up"/>
+            <views:viewCharacters x:Name="viewCharacters" Direction="Left"/>
+            <views:viewNotes x:Name="viewNotes" Direction="Down"/>
+            <views:viewCampaign x:Name="viewCampaign" Direction="Right"/>
+
+            <Border Width="500" Background="#FF1A1A1A" HorizontalAlignment="Left" Margin="-500,0,0,0"/>
+            <Border Width="500" Background="#FF1A1A1A" HorizontalAlignment="Right" Margin="0,0,-500,-50"/>
+            <Border Height="500" Background="#FF1A1A1A" VerticalAlignment="Top" Margin="0,-500,0,0"/>
+            <Border Height="500" Background="#FF1A1A1A" VerticalAlignment="Bottom" Margin="0,0,0,-500"/>
+
+            <Border x:Name="brdDisable" Background="Black" Opacity="0.6"/>
+        </Grid>
+    </Viewbox>
+</Window>

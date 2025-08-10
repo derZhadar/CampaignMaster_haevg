@@ -1,0 +1,891 @@
+﻿<views:ctlViewBase x:Class="CampaignMaster.Controls.Views.viewCharacters"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                   xmlns:local="clr-namespace:CampaignMaster"
+                   xmlns:misc="clr-namespace:CampaignMaster.Misc"
+                   xmlns:converter="clr-namespace:SamCorp.WPF.Converter;assembly=SamCorp.WPF"
+                   xmlns:vm="clr-namespace:CampaignMaster.ViewModels"
+                   xmlns:views="clr-namespace:CampaignMaster.Controls.Views"
+                   xmlns:samctl="clr-namespace:SamCorp.WPF.Controls;assembly=SamCorp.WPF"
+                   Background="{StaticResource View.Background}"
+                   Direction="Left"
+                   mc:Ignorable="d" 
+                   d:DesignHeight="1600" d:DesignWidth="2400">
+    <views:ctlViewBase.DataContext>
+        <vm:vmCharacters/>
+    </views:ctlViewBase.DataContext>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/CampaignMaster;component/Resources/Images/Backgrounds/BoardBlank.jpg"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1300"/>
+            <ColumnDefinition Width="1100"/>
+        </Grid.ColumnDefinitions>
+
+        <ListView Grid.Column="0" Background="Transparent" ItemsSource="{Binding Characters}" SelectedItem="{Binding SelectedCharacter}" ScrollViewer.CanContentScroll="False" ScrollViewer.VerticalScrollBarVisibility="Hidden" BorderThickness="0" Margin="300,260,50,150">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="265"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="40"/>
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0" Source="{Binding CharacterImage}" Stretch="UniformToFill" Margin="30,15, 16,0"/>
+                            <Border Grid.Row="1" Background="{Binding Color}" Margin="30,3, 16,15"/>
+                        </Grid>
+
+                        <Grid Grid.Column="1" Margin="14,21,40, 21">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="35"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="10"/>
+                                <RowDefinition Height="40"/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Name}" Foreground="#FF3F0900" FontFamily="Bradley Hand ITC" FontWeight="Bold" FontSize="50"/>
+                            <TextBlock Grid.Row="2" HorizontalAlignment="Center" Foreground="#FF3F0900" FontFamily="Bradley Hand ITC" FontWeight="Bold" FontSize="20">
+                                    <Run Text="("/><Run Text="{Binding PlayerName}"/><Run Text=")"/>
+                            </TextBlock>
+                            <TextBlock Grid.Row="4" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3F0900" FontFamily="Consolas" FontSize="30">
+                                    <Run Text="{Binding Race}"/>, <Run Text="{Binding Class}"/> <Run Text="("/><Run Text="{Binding Level}"/><Run Text=")"/>
+                            </TextBlock>
+
+                            <Grid Grid.Row="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3F0900" FontFamily="Consolas" FontWeight="Bold" FontSize="20">
+                                        <Run Text="STR"/> <Run Text="{Binding Strength}"/> <Run Text="("/><Run Text="{Binding Strength, Converter={misc:AttributeToModifierValueConverter}}"/><Run Text=")"/>
+                                </TextBlock>
+                                <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3F0900" FontFamily="Consolas" FontWeight="Bold" FontSize="20">
+                                    <Run Text="DEX"/> <Run Text="{Binding Dexterity}"/> <Run Text="("/><Run Text="{Binding Dexterity, Converter={misc:AttributeToModifierValueConverter}}"/><Run Text=")"/>
+                                </TextBlock>
+
+                                <TextBlock Grid.Column="1" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3F0900" FontFamily="Consolas" FontWeight="Bold" FontSize="20">
+                                    <Run Text="CON"/> <Run Text="{Binding Constitution}"/> <Run Text="("/><Run Text="{Binding Constitution, Converter={misc:AttributeToModifierValueConverter}}"/><Run Text=")"/>
+                                </TextBlock>
+                                <TextBlock Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3F0900" FontFamily="Consolas" FontWeight="Bold" FontSize="20">
+                                    <Run Text="INT"/> <Run Text="{Binding Intelligence}"/> <Run Text="("/><Run Text="{Binding Intelligence, Converter={misc:AttributeToModifierValueConverter}}"/><Run Text=")"/>
+                                </TextBlock>
+
+                                <TextBlock Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3F0900" FontFamily="Consolas" FontWeight="Bold" FontSize="20">
+                                    <Run Text="WIS"/> <Run Text="{Binding Wisdom}"/> <Run Text="("/><Run Text="{Binding Wisdom, Converter={misc:AttributeToModifierValueConverter}}"/><Run Text=")"/>
+                                </TextBlock>
+                                <TextBlock Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3F0900" FontFamily="Consolas" FontWeight="Bold" FontSize="20">
+                                    <Run Text="CHA"/> <Run Text="{Binding Charisma}"/> <Run Text="("/><Run Text="{Binding Charisma, Converter={misc:AttributeToModifierValueConverter}}"/><Run Text=")"/>
+                                </TextBlock>
+                            </Grid>
+
+                        </Grid>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Grid Height="215" Margin="10,10, 110,10">
+                                    <Grid.Background>
+                                        <ImageBrush ImageSource="/CampaignMaster;component/Resources/Images/Misc/CharFrame.png"/>
+                                    </Grid.Background>
+                                    <ContentPresenter/>
+                                    <Border Margin="23,8" BorderThickness="0" Background="{TemplateBinding Background}" Opacity="0.3"/>
+                                    <Border Margin="14,0,15,0" BorderThickness="8" BorderBrush="{TemplateBinding BorderBrush}"/>
+                                    <Border Margin="257,0,0,0" HorizontalAlignment="Left" Width="8" BorderThickness="0" Background="{TemplateBinding BorderBrush}"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="IsSelected" Value="False"/>
+                            </MultiTrigger.Conditions>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="Background" Value="DodgerBlue"/>
+                        </MultiTrigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="BorderBrush" Value="DodgerBlue"/>
+                            <Setter Property="Background" Value="DodgerBlue"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+
+        <Grid Grid.Column="1" Visibility="{Binding SelectedCharacter, Converter={converter:NotNullToVisibilityConverter}}">
+            <Grid Margin="0,150,70,80">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="90"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="96"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="96"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Image Grid.Row="0" Grid.RowSpan="8" Margin="-20,0,0,0" Stretch="Fill" Source="/CampaignMaster;component/Resources/Images/Backgrounds/OldPaper_Light.png"/>
+
+                <Grid Grid.Row="1" Margin="70,0,350,0">
+                    <TextBox Margin="0,0,0,30" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedCharacter.Name}" Foreground="#111" FontFamily="Bradley Hand ITC" FontWeight="Bold" FontSize="50" Background="Transparent" BorderThickness="0,0,0,2" BorderBrush="#333"/>
+                    <TextBlock Text="Name" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,7" Foreground="#333" FontFamily="Consolas" FontWeight="Bold" FontSize="20"/>
+                </Grid>
+                <Grid Grid.Row="2" Margin="70,0,320,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0" Margin="0,0,20,30" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedCharacter.PlayerName}" Foreground="#333" FontFamily="Bradley Hand ITC" FontWeight="Bold" FontSize="50" Background="Transparent" BorderThickness="0,0,0,2" BorderBrush="#333"/>
+                    <TextBlock Grid.Column="0"  Text="Player" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,7" Foreground="#333" FontFamily="Consolas" FontWeight="Bold" FontSize="20"/>
+
+                    <TextBox Grid.Column="1" Margin="0,0,20,30" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedCharacter.Race}" Foreground="#333" FontFamily="Bradley Hand ITC" FontWeight="Bold" FontSize="50" Background="Transparent" BorderThickness="0,0,0,2" BorderBrush="#333"/>
+                    <TextBlock Grid.Column="1"  Text="Race" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,7" Foreground="#333" FontFamily="Consolas" FontWeight="Bold" FontSize="20"/>
+
+
+                    <TextBox Grid.Column="2" Margin="0,0,20,30" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Center" Text="{Binding SelectedCharacter.Age}" Foreground="#333" FontFamily="Bradley Hand ITC" FontWeight="Bold" FontSize="50" Background="Transparent" BorderThickness="0,0,0,2" BorderBrush="#333"/>
+                    <TextBlock Grid.Column="2"  Text="Age" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,7" Foreground="#333" FontFamily="Consolas" FontWeight="Bold" FontSize="20"/>
+
+                    <TextBox Grid.Column="3" Margin="0,0,0,30" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" VerticalAlignment="Center" Text="{Binding SelectedCharacter.Level}" Foreground="#333" FontFamily="Bradley Hand ITC" FontWeight="Bold" FontSize="50" Background="Transparent" BorderThickness="0,0,0,2" BorderBrush="#333"/>
+                    <TextBlock Grid.Column="3"  Text="Level" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,7" Foreground="#333" FontFamily="Consolas" FontWeight="Bold" FontSize="20"/>
+                </Grid>
+
+                <Grid Grid.Row="3" Margin="70,0,100,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="550"/>
+                        <ColumnDefinition Width="168"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Grid.Column="0"  Margin="0,0,20,30" HorizontalAlignment="Stretch" HorizontalContentAlignment="Left" VerticalAlignment="Center" Text="{Binding SelectedCharacter.Class}" Foreground="#333" FontFamily="Bradley Hand ITC" FontWeight="Bold" FontSize="50" Background="Transparent" BorderThickness="0,0,0,2" BorderBrush="#333"/>
+                    <TextBlock Grid.Column="0" Text="Class" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,7" Foreground="#333" FontFamily="Consolas" FontWeight="Bold" FontSize="20"/>
+
+                    <TextBox Grid.Column="1" Margin="0,0,0,30" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalAlignment="Center" Text="{Binding SelectedCharacter.Xp}" Foreground="#333" FontFamily="Bradley Hand ITC" FontWeight="Bold" FontSize="50" Background="Transparent" BorderThickness="0,0,0,2" BorderBrush="#333"/>
+                    <TextBox Grid.Column="1"  Text="{Binding SelectedCharacter.XpSession}" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0" Foreground="#333" FontFamily="Bradley Hand ITC" FontWeight="Bold" FontSize="28" Background="Transparent" BorderThickness="0" BorderBrush="Transparent"/>
+                    <TextBlock Grid.Column="2"  HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,0" Foreground="#333" FontFamily="Bradley Hand ITC" FontWeight="Bold" FontSize="28">
+                        <Run Text="= "/><Run Text="{Binding SelectedCharacter.XpTotal, Mode=OneWay}"/><Run Text="{Binding SelectedCharacter.NewLevelIndicator, Mode=OneWay}"/>
+                    </TextBlock>
+                    <TextBlock Grid.Column="1"  Text="XP" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0,0,0,7" Foreground="#333" FontFamily="Consolas" FontWeight="Bold" FontSize="20"/>
+                </Grid>
+
+                <Grid Visibility="Hidden" Grid.Row="4" Grid.RowSpan="3" Margin="70,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                            <RowDefinition Height="60"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Margin="0,-1,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20*"/>
+                                <ColumnDefinition Width="60*"/>
+                                <ColumnDefinition Width="20*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!--<Border Grid.Column="0" Background="#FF3F0900" BorderThickness="0">
+                                <TextBox HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,15,0" Text="{Binding SelectedCharacter.Strength}" Foreground="#FFD6C3AE" FontFamily="Consolas" FontWeight="Bold" FontSize="40" Background="Transparent" BorderThickness="0"/>
+                            </Border>-->
+
+                            <Image Grid.Column="1" Margin="-15,0" Stretch="Fill" Source="/CampaignMaster;component/Resources/Images/Misc/DoubleSmallFrame_Light.png"/>
+                            <TextBlock Grid.Column="1" Text="Strength" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF301D17" FontFamily="Consolas" FontWeight="Bold" FontSize="40"/>
+
+                            <Image Grid.Column="2" Stretch="Fill" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                            <TextBlock Grid.Column="2" Text="{Binding SelectedCharacter.Strength, Converter={misc:AttributeToModifierValueConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFE2DDCF" FontFamily="Consolas" FontWeight="Bold" FontSize="40"/>
+
+
+                            <Image Grid.Column="0" Stretch="Fill" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                            <TextBox Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,15,0" Text="{Binding SelectedCharacter.Strength}" Foreground="#FFE2DDCF" FontFamily="Consolas" FontWeight="Bold" FontSize="40" Background="Transparent" BorderThickness="0"/>
+
+
+                            <!--<Border Grid.Column="1" BorderBrush="#FF3F0900" BorderThickness="0,6,0,3">
+                                <TextBlock Text="Strength" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3F0900" FontFamily="Consolas" FontWeight="Bold" FontSize="40"/>
+                            </Border>-->
+
+                            <!--<Border Grid.Column="2" Background="#333" BorderBrush="#FF3F0900" BorderThickness="0,6,6,3">
+                                <TextBox HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,15,0" Text="{Binding SelectedCharacter.Strength, Converter={misc:AttributeToModifierValueConverter}}" Foreground="#FFD6C3AE" FontFamily="Consolas" FontWeight="Bold" FontSize="40" Background="Transparent" BorderThickness="0,0,0,2" BorderBrush="#333"/>
+                            </Border>-->
+                        </Grid>
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20*"/>
+                                <ColumnDefinition Width="60*"/>
+                                <ColumnDefinition Width="20*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" Background="#FF3F0900" BorderThickness="0">
+                                <TextBox HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,15,0" Text="{Binding SelectedCharacter.Dexterity}" Foreground="#FFD6C3AE" FontFamily="Consolas" FontWeight="Bold" FontSize="40" Background="Transparent" BorderThickness="0"/>
+                            </Border>
+
+                            <Border Grid.Column="1" BorderBrush="#FF3F0900" BorderThickness="0,3,0,3">
+                                <TextBlock Text="Dexterity" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF3F0900" FontFamily="Consolas" FontWeight="Bold" FontSize="40"/>
+                            </Border>
+
+                            <Border Grid.Column="2" Background="#333" BorderBrush="#FF3F0900" BorderThickness="0,3,3,3">
+                                <TextBox HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,15,0" Text="{Binding SelectedCharacter.Dexterity, Converter={misc:AttributeToModifierValueConverter}}" Foreground="#FFD6C3AE" FontFamily="Consolas" FontWeight="Bold" FontSize="40" Background="Transparent" BorderThickness="0,0,0,2" BorderBrush="#333"/>
+                            </Border>
+                        </Grid>
+
+                    </Grid>
+                </Grid>
+
+                <Grid Visibility="Visible" Grid.Row="4" Margin="70,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" Grid.Row="0" Margin="0,0,40,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="61*"/>
+                            <ColumnDefinition Width="39*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Source="/CampaignMaster;component/Resources/Images/Misc/MiscFrame.png"/>
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFE2DDCF" FontFamily="Consolas" FontWeight="Bold" FontSize="30" Text="HP"/>
+                        <TextBox Grid.Column="1" BorderThickness="0" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF301D17" FontFamily="Consolas" FontWeight="Bold" FontSize="37" Text="{Binding SelectedCharacter.HitPoints}"/>
+                    </Grid>
+
+                    <Grid Grid.Column="1" Grid.Row="0" Margin="0,0,40,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="61*"/>
+                            <ColumnDefinition Width="39*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Source="/CampaignMaster;component/Resources/Images/Misc/MiscFrame.png"/>
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFE2DDCF" FontFamily="Consolas" FontWeight="Bold" FontSize="30" Text="HD"/>
+                        <TextBox Grid.Column="1" BorderThickness="0" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF301D17" FontFamily="Consolas" FontWeight="Bold" FontSize="37" Text="{Binding SelectedCharacter.HitDice}"/>
+                    </Grid>
+
+                    <Grid Grid.Column="2" Grid.Row="0" Margin="0,0,40,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="61*"/>
+                            <ColumnDefinition Width="39*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Source="/CampaignMaster;component/Resources/Images/Misc/MiscFrame.png"/>
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFE2DDCF" FontFamily="Consolas" FontWeight="Bold" FontSize="30" Text="AC"/>
+                        <TextBox Grid.Column="1" BorderThickness="0" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF301D17" FontFamily="Consolas" FontWeight="Bold" FontSize="37" Text="{Binding SelectedCharacter.ArmorClass}"/>
+                    </Grid>
+
+                    <Grid Grid.Column="3" Grid.Row="0" Margin="0,0,40,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="61*"/>
+                            <ColumnDefinition Width="39*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Source="/CampaignMaster;component/Resources/Images/Misc/MiscFrame.png"/>
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFE2DDCF" FontFamily="Consolas" FontWeight="Bold" FontSize="30" Text="INIT"/>
+                        <TextBox Grid.Column="1" BorderThickness="0" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF301D17" FontFamily="Consolas" FontWeight="Bold" FontSize="37" Text="{Binding SelectedCharacter.Initiative}"/>
+                    </Grid>
+
+
+                </Grid>
+
+                <Grid Visibility="Visible" Grid.Row="5" Margin="70,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="0" Grid.Row="0" Margin="0,0,5,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="90"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="126"/>
+                            <RowDefinition Height="90"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Margin="0.04,0,0,0" Grid.Row="1">
+                            <StackPanel.Resources>
+                                <Style TargetType="{x:Type Grid}">
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="Margin" Value="-0.65,-3.5,68,0"/>
+                                </Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="Margin" Value="16,0,0,0"/>
+                                    <Setter Property="Foreground" Value="#FF3E261E"/>
+                                    <Setter Property="FontFamily" Value="Consolas"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="FontSize" Value="18"/>
+                                </Style>
+                                <Style TargetType="{x:Type TextBox}">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Margin" Value="178.3,0,0,0"/>
+                                    <Setter Property="Foreground" Value="#FFE2DDCF"/>
+                                    <Setter Property="FontFamily" Value="Consolas"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="FontSize" Value="20"/>
+                                </Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Margin" Value="0,0,37.2,0"/>
+                                    <Setter Property="Stretch" Value="Fill"/>
+                                    <Setter Property="Source" Value="/CampaignMaster;component/Resources/Images/Misc/DoubleSmallFrame_Light.png"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <Grid Margin="-0.65,-15.5,68,0">
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Climb"/>
+                                <TextBox Text="{Binding SelectedCharacter.Climb}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Jump"/>
+                                <TextBox Text="{Binding SelectedCharacter.Jump}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Swim"/>
+                                <TextBox Text="{Binding SelectedCharacter.Swim}"/>
+                            </Grid>
+
+                        </StackPanel>
+                        <Grid Grid.Row="0" HorizontalAlignment="Left">
+                            <Image Stretch="Fill" Source="/CampaignMaster;component/Resources/Images/Misc/AbilityFrameLarge.png"/>
+                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="34.2,0,0,0" Foreground="#FFE2DDCF" FontFamily="Consolas" FontWeight="Bold" FontSize="45" Text="STR"/>
+                            <TextBox BorderThickness="0" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="67.6,0,0,0" Foreground="#FF301D17" FontFamily="Consolas" FontWeight="Bold" FontSize="37" Text="{Binding SelectedCharacter.Strength}"/>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="210,0,0,0" Foreground="#222" FontFamily="Consolas" FontWeight="Bold" FontSize="48" Text="{Binding SelectedCharacter.Strength, Converter={misc:AttributeToModifierValueConverter}}"/>
+                        </Grid>
+
+                        <StackPanel Margin="0.04,0,0,0" Grid.Row="4">
+                            <StackPanel.Resources>
+                                <Style TargetType="{x:Type Grid}">
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="Margin" Value="-0.65,-3.5,68,0"/>
+                                </Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="Margin" Value="16,0,0,0"/>
+                                    <Setter Property="Foreground" Value="#FF3E261E"/>
+                                    <Setter Property="FontFamily" Value="Consolas"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="FontSize" Value="18"/>
+                                </Style>
+                                <Style TargetType="{x:Type TextBox}">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Margin" Value="178.3,0,0,0"/>
+                                    <Setter Property="Foreground" Value="#FFE2DDCF"/>
+                                    <Setter Property="FontFamily" Value="Consolas"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="FontSize" Value="20"/>
+                                </Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Margin" Value="0,0,37.2,0"/>
+                                    <Setter Property="Stretch" Value="Fill"/>
+                                    <Setter Property="Source" Value="/CampaignMaster;component/Resources/Images/Misc/DoubleSmallFrame_Light.png"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <Grid Margin="-0.65,-15.5,68,0">
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Appraise"/>
+                                <TextBox Text="{Binding SelectedCharacter.Appraise}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Craft"/>
+                                <TextBox Text="{Binding SelectedCharacter.Craft}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Decipher Script"/>
+                                <TextBox Text="{Binding SelectedCharacter.DecipherScript}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Disable Device"/>
+                                <TextBox Text="{Binding SelectedCharacter.DisableDevice}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Forgery"/>
+                                <TextBox Text="{Binding SelectedCharacter.Forgery}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Knowledge"/>
+                                <TextBox Text="{Binding SelectedCharacter.Knowledge}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Search"/>
+                                <TextBox Text="{Binding SelectedCharacter.Search}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Spellcraft"/>
+                                <TextBox Text="{Binding SelectedCharacter.Spellcraft}"/>
+                            </Grid>
+
+                        </StackPanel>
+                        <Grid Grid.Row="3" HorizontalAlignment="Left">
+                            <Image Stretch="Fill" Source="/CampaignMaster;component/Resources/Images/Misc/AbilityFrameLarge.png"/>
+                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="34.2,0,0,0" Foreground="#FFE2DDCF" FontFamily="Consolas" FontWeight="Bold" FontSize="45" Text="INT"/>
+                            <TextBox BorderThickness="0" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="67.6,0,0,0" Foreground="#FF301D17" FontFamily="Consolas" FontWeight="Bold" FontSize="37" Text="{Binding SelectedCharacter.Intelligence}"/>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="210,0,0,0" Foreground="#222" FontFamily="Consolas" FontWeight="Bold" FontSize="48" Text="{Binding SelectedCharacter.Intelligence, Converter={misc:AttributeToModifierValueConverter}}"/>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Column="1" Grid.Row="0" Margin="0,0,5,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="90"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="90"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Margin="0.04,0,0,0" Grid.Row="1">
+                            <StackPanel.Resources>
+                                <Style TargetType="{x:Type Grid}">
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="Margin" Value="-0.65,-3.5,68,0"/>
+                                </Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="Margin" Value="16,0,0,0"/>
+                                    <Setter Property="Foreground" Value="#FF3E261E"/>
+                                    <Setter Property="FontFamily" Value="Consolas"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="FontSize" Value="18"/>
+                                </Style>
+                                <Style TargetType="{x:Type TextBox}">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Margin" Value="178.3,0,0,0"/>
+                                    <Setter Property="Foreground" Value="#FFE2DDCF"/>
+                                    <Setter Property="FontFamily" Value="Consolas"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="FontSize" Value="20"/>
+                                </Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Margin" Value="0,0,37.2,0"/>
+                                    <Setter Property="Stretch" Value="Fill"/>
+                                    <Setter Property="Source" Value="/CampaignMaster;component/Resources/Images/Misc/DoubleSmallFrame_Light.png"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <Grid Margin="-0.65,-15.5,68,0">
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Balance"/>
+                                <TextBox Text="{Binding SelectedCharacter.Balance}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Escape Artist"/>
+                                <TextBox Text="{Binding SelectedCharacter.EscapeArtist}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Hide"/>
+                                <TextBox Text="{Binding SelectedCharacter.Hide}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Move Silently"/>
+                                <TextBox Text="{Binding SelectedCharacter.MoveSilently}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Open Lock"/>
+                                <TextBox Text="{Binding SelectedCharacter.OpenLock}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Ride"/>
+                                <TextBox Text="{Binding SelectedCharacter.Ride}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Sleight of Hand"/>
+                                <TextBox Text="{Binding SelectedCharacter.SleightOfHand}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Tumble"/>
+                                <TextBox Text="{Binding SelectedCharacter.Tumble}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Use Rope"/>
+                                <TextBox Text="{Binding SelectedCharacter.UseRope}"/>
+                            </Grid>
+
+                        </StackPanel>
+                        <Grid Grid.Row="0" HorizontalAlignment="Left">
+                            <Image Stretch="Fill" Source="/CampaignMaster;component/Resources/Images/Misc/AbilityFrameLarge.png"/>
+                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="34.2,0,0,0" Foreground="#FFE2DDCF" FontFamily="Consolas" FontWeight="Bold" FontSize="45" Text="DEX"/>
+                            <TextBox BorderThickness="0" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="67.6,0,0,0" Foreground="#FF301D17" FontFamily="Consolas" FontWeight="Bold" FontSize="37" Text="{Binding SelectedCharacter.Dexterity}"/>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="210,0,0,0" Foreground="#222" FontFamily="Consolas" FontWeight="Bold" FontSize="48" Text="{Binding SelectedCharacter.Dexterity, Converter={misc:AttributeToModifierValueConverter}}"/>
+                        </Grid>
+
+                        <StackPanel Margin="0.04,0,0,0" Grid.Row="4">
+                            <StackPanel.Resources>
+                                <Style TargetType="{x:Type Grid}">
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="Margin" Value="-0.65,-3.5,68,0"/>
+                                </Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="Margin" Value="16,0,0,0"/>
+                                    <Setter Property="Foreground" Value="#FF3E261E"/>
+                                    <Setter Property="FontFamily" Value="Consolas"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="FontSize" Value="18"/>
+                                </Style>
+                                <Style TargetType="{x:Type TextBox}">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Margin" Value="178.3,0,0,0"/>
+                                    <Setter Property="Foreground" Value="#FFE2DDCF"/>
+                                    <Setter Property="FontFamily" Value="Consolas"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="FontSize" Value="20"/>
+                                </Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Margin" Value="0,0,37.2,0"/>
+                                    <Setter Property="Stretch" Value="Fill"/>
+                                    <Setter Property="Source" Value="/CampaignMaster;component/Resources/Images/Misc/DoubleSmallFrame_Light.png"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <Grid Margin="-0.65,-15.5,68,0">
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Heal"/>
+                                <TextBox Text="{Binding SelectedCharacter.Heal}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Listen"/>
+                                <TextBox Text="{Binding SelectedCharacter.Listen}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Profession"/>
+                                <TextBox Text="{Binding SelectedCharacter.Profession}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Sense Motive"/>
+                                <TextBox Text="{Binding SelectedCharacter.SenseMotive}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Spot"/>
+                                <TextBox Text="{Binding SelectedCharacter.Spot}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Survival"/>
+                                <TextBox Text="{Binding SelectedCharacter.Survival}"/>
+                            </Grid>
+
+                        </StackPanel>
+                        <Grid Grid.Row="3" HorizontalAlignment="Left">
+                            <Image Stretch="Fill" Source="/CampaignMaster;component/Resources/Images/Misc/AbilityFrameLarge.png"/>
+                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="34.2,0,0,0" Foreground="#FFE2DDCF" FontFamily="Consolas" FontWeight="Bold" FontSize="45" Text="WIS"/>
+                            <TextBox BorderThickness="0" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="67.6,0,0,0" Foreground="#FF301D17" FontFamily="Consolas" FontWeight="Bold" FontSize="37" Text="{Binding SelectedCharacter.Wisdom}"/>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="210,0,0,0" Foreground="#222" FontFamily="Consolas" FontWeight="Bold" FontSize="48" Text="{Binding SelectedCharacter.Wisdom, Converter={misc:AttributeToModifierValueConverter}}"/>
+                        </Grid>
+                    </Grid>
+
+                    <Grid Grid.Column="2" Grid.Row="0" Margin="0,0,5,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="90"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="179"/>
+                            <RowDefinition Height="90"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Margin="0.04,0,0,0" Grid.Row="1">
+                            <StackPanel.Resources>
+                                <Style TargetType="{x:Type Grid}">
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="Margin" Value="-0.65,-3.5,68,0"/>
+                                </Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="Margin" Value="16,0,0,0"/>
+                                    <Setter Property="Foreground" Value="#FF3E261E"/>
+                                    <Setter Property="FontFamily" Value="Consolas"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="FontSize" Value="18"/>
+                                </Style>
+                                <Style TargetType="{x:Type TextBox}">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Margin" Value="178.3,0,0,0"/>
+                                    <Setter Property="Foreground" Value="#FFE2DDCF"/>
+                                    <Setter Property="FontFamily" Value="Consolas"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="FontSize" Value="20"/>
+                                </Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Margin" Value="0,0,37.2,0"/>
+                                    <Setter Property="Stretch" Value="Fill"/>
+                                    <Setter Property="Source" Value="/CampaignMaster;component/Resources/Images/Misc/DoubleSmallFrame_Light.png"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <Grid Margin="-0.65,-15.5,68,0">
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Concentration"/>
+                                <TextBox Text="{Binding SelectedCharacter.Concentration}"/>
+                            </Grid>
+
+                        </StackPanel>
+                        <Grid Grid.Row="0" HorizontalAlignment="Left">
+                            <Image Stretch="Fill" Source="/CampaignMaster;component/Resources/Images/Misc/AbilityFrameLarge.png"/>
+                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="34.2,0,0,0" Foreground="#FFE2DDCF" FontFamily="Consolas" FontWeight="Bold" FontSize="45" Text="CON"/>
+                            <TextBox BorderThickness="0" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="67.6,0,0,0" Foreground="#FF301D17" FontFamily="Consolas" FontWeight="Bold" FontSize="37" Text="{Binding SelectedCharacter.Constitution}"/>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="210,0,0,0" Foreground="#222" FontFamily="Consolas" FontWeight="Bold" FontSize="48" Text="{Binding SelectedCharacter.Constitution, Converter={misc:AttributeToModifierValueConverter}}"/>
+                        </Grid>
+
+                        <StackPanel Margin="0.04,0,0,0" Grid.Row="4">
+                            <StackPanel.Resources>
+                                <Style TargetType="{x:Type Grid}">
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="Margin" Value="-0.65,-3.5,68,0"/>
+                                </Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="Margin" Value="16,0,0,0"/>
+                                    <Setter Property="Foreground" Value="#FF3E261E"/>
+                                    <Setter Property="FontFamily" Value="Consolas"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="FontSize" Value="18"/>
+                                </Style>
+                                <Style TargetType="{x:Type TextBox}">
+                                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                                    <Setter Property="VerticalAlignment" Value="Center"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                    <Setter Property="Background" Value="Transparent"/>
+                                    <Setter Property="Margin" Value="178.3,0,0,0"/>
+                                    <Setter Property="Foreground" Value="#FFE2DDCF"/>
+                                    <Setter Property="FontFamily" Value="Consolas"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="FontSize" Value="20"/>
+                                </Style>
+                                <Style TargetType="{x:Type Image}">
+                                    <Setter Property="Margin" Value="0,0,37.2,0"/>
+                                    <Setter Property="Stretch" Value="Fill"/>
+                                    <Setter Property="Source" Value="/CampaignMaster;component/Resources/Images/Misc/DoubleSmallFrame_Light.png"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <Grid Margin="-0.65,-15.5,68,0">
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Bluff"/>
+                                <TextBox Text="{Binding SelectedCharacter.Bluff}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Diplomacy"/>
+                                <TextBox Text="{Binding SelectedCharacter.Diplomacy}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Disguise"/>
+                                <TextBox Text="{Binding SelectedCharacter.Disguise}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Gather Inform."/>
+                                <TextBox Text="{Binding SelectedCharacter.GatherInformation}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Handle Animal"/>
+                                <TextBox Text="{Binding SelectedCharacter.HandleAnimal}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Intimidate"/>
+                                <TextBox Text="{Binding SelectedCharacter.Intimidate}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Perform"/>
+                                <TextBox Text="{Binding SelectedCharacter.Perform}"/>
+                            </Grid>
+                            <Grid>
+                                <Image/>
+                                <Image Margin="178.2,0,0,0" Source="/CampaignMaster;component/Resources/Images/Misc/SmallFrame_Dark.png"/>
+                                <TextBlock Text="Use Magic Dev."/>
+                                <TextBox Text="{Binding SelectedCharacter.UseMagicDevice}"/>
+                            </Grid>
+
+                        </StackPanel>
+                        <Grid Grid.Row="3" HorizontalAlignment="Left">
+                            <Image Stretch="Fill" Source="/CampaignMaster;component/Resources/Images/Misc/AbilityFrameLarge.png"/>
+                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="34.2,0,0,0" Foreground="#FFE2DDCF" FontFamily="Consolas" FontWeight="Bold" FontSize="45" Text="CHA"/>
+                            <TextBox BorderThickness="0" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="67.6,0,0,0" Foreground="#FF301D17" FontFamily="Consolas" FontWeight="Bold" FontSize="37" Text="{Binding SelectedCharacter.Charisma}"/>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="210,0,0,0" Foreground="#222" FontFamily="Consolas" FontWeight="Bold" FontSize="48" Text="{Binding SelectedCharacter.Charisma, Converter={misc:AttributeToModifierValueConverter}}"/>
+                        </Grid>
+                    </Grid>
+
+
+                </Grid>
+
+                <Grid Visibility="Visible" Grid.Row="6" Margin="70,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" Grid.ColumnSpan="2" Margin="0,0,40,0" Width="182">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="61*"/>
+                            <ColumnDefinition Width="39*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Source="/CampaignMaster;component/Resources/Images/Misc/MiscFrame.png"/>
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFE2DDCF" FontFamily="Consolas" FontWeight="Bold" FontSize="30" Text="FORT"/>
+                        <TextBox Grid.Column="1" BorderThickness="0" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF301D17" FontFamily="Consolas" FontWeight="Bold" FontSize="37" Text="{Binding SelectedCharacter.Fortitude}"/>
+                    </Grid>
+
+                    <Grid Grid.Column="1" Grid.ColumnSpan="2" Margin="0,0,40,0" Width="182">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="61*"/>
+                            <ColumnDefinition Width="39*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Source="/CampaignMaster;component/Resources/Images/Misc/MiscFrame.png"/>
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFE2DDCF" FontFamily="Consolas" FontWeight="Bold" FontSize="30" Text="REF"/>
+                        <TextBox Grid.Column="1" BorderThickness="0" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF301D17" FontFamily="Consolas" FontWeight="Bold" FontSize="37" Text="{Binding SelectedCharacter.Reflex}"/>
+                    </Grid>
+
+                    <Grid Grid.Column="2" Grid.ColumnSpan="2" Margin="0,0,40,0" Width="182">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="61*"/>
+                            <ColumnDefinition Width="39*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Left" Source="/CampaignMaster;component/Resources/Images/Misc/MiscFrame.png"/>
+                        <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFE2DDCF" FontFamily="Consolas" FontWeight="Bold" FontSize="30" Text="WILL"/>
+                        <TextBox Grid.Column="1" BorderThickness="0" Background="Transparent" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF301D17" FontFamily="Consolas" FontWeight="Bold" FontSize="37" Text="{Binding SelectedCharacter.Will}"/>
+                    </Grid>
+                </Grid>
+
+                <TextBlock Grid.Row="7" Text="Notes:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="70,-20,0,0" Foreground="#333" FontFamily="Bradley Hand ITC" FontWeight="Bold" FontSize="50" Opacity="0.5"/>
+                <InkCanvas Grid.Row="7" Margin="30,0,50,20" Background="Transparent" Strokes="{Binding SelectedCharacter.Notes}"/>
+            </Grid>
+
+            <samctl:SamButton VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,430,115,0" Width="65" Height="65" CornerRadius="100" BorderThickness="5" BorderBrush="{StaticResource PaperBrown}" Background="{StaticResource PaperWhite}" Foreground="{StaticResource PaperBrown}" FontFamily="Segoe UI Symbol" Content="&#xE10B;" FontSize="41" Command="{Binding SelectedCharacter.CommandTakeOverSessionXp}"/>
+
+            <Grid VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,90,40,0">
+                <Border x:Name="brdPortraitMask" Width="290" Height="290" Background="Pink" CornerRadius="410"/>
+                <Image Width="290" Height="290" Source="{Binding SelectedCharacter.CharacterImage}">
+                    <Image.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=brdPortraitMask}"/>
+                    </Image.OpacityMask>
+                </Image>
+
+                <Button Margin="15" Opacity="0.5" BorderBrush="Transparent" BorderThickness="0" Command="{Binding SelectedCharacter.CommandSelectCharacterImage}">
+                    <Button.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=brdPortraitMask}"/>
+                    </Button.OpacityMask>
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="DodgerBlue"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
+                <Image IsHitTestVisible="False" Width="350" Height="350" Source="/CampaignMaster;component/Resources/Images/Misc/CharacterRoundFrame.png" />
+
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+</views:ctlViewBase>

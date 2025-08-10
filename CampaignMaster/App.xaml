@@ -1,0 +1,15 @@
+﻿<Application x:Class="CampaignMaster.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:CampaignMaster">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/XAML/Brushes.xaml"/>
+                <ResourceDictionary Source="Resources/XAML/Simple Styles.xaml"/>
+                <ResourceDictionary Source="Resources/XAML/Styles.xaml" />
+                <ResourceDictionary Source="Resources/XAML/Templates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

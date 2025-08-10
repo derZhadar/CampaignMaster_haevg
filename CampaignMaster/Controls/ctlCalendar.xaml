@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="CampaignMaster.Controls.ctlCalendar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CampaignMaster.Controls"
+             xmlns:vm="clr-namespace:CampaignMaster.ViewModels"
+             xmlns:samctl="clr-namespace:SamCorp.WPF.Controls;assembly=SamCorp.WPF"
+             xmlns:samconv="clr-namespace:SamCorp.WPF.Converter;assembly=SamCorp.WPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="1350" d:DesignWidth="1200" Background="Transparent">
+    <UserControl.DataContext>
+        <vm:vmCalendar/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <samctl:SamButton Grid.Row="0" Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=ShowButtons, Converter={samconv:BooleanToVisibility}}" HorizontalAlignment="Left" Width="150" FontFamily="Segoe UI Symbol" Background="#FF3E261E" Foreground="#FFE2DDCF" BorderThickness="0" Command="{Binding CommandSubstractDay}">
+            <Viewbox>
+                <TextBlock Margin="5,0,2,0" Text="&#xE1DB;"/>
+            </Viewbox>
+        </samctl:SamButton>
+
+        <samctl:SamButton Grid.Row="0" Visibility="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=ShowButtons, Converter={samconv:BooleanToVisibility}}" HorizontalAlignment="Right" Width="150" FontFamily="Segoe UI Symbol" Background="#FF3E261E" Foreground="#FFE2DDCF" BorderThickness="0" Command="{Binding CommandAddDay}">
+            <Viewbox>
+                <TextBlock Margin="5,0,2,0" Text="&#xE1DB;">
+                    <TextBlock.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleY="1" ScaleX="-1"/>
+                            <TranslateTransform X="12"/>
+                        </TransformGroup>
+                    </TextBlock.RenderTransform>
+                </TextBlock>
+            </Viewbox>
+        </samctl:SamButton>
+
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+
+            <Border Grid.Row="0" Grid.RowSpan="2" Margin="0,50,0,0" Width="830" BorderThickness="0,0,0,6" VerticalAlignment="Center" BorderBrush="#FF301D17"/>
+            <TextBlock x:Name="txtDate" Grid.Row="0" Grid.RowSpan="2" Margin="5,0" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding DateString}" FontWeight="Bold" FontSize="70" FontFamily="Bradley Hand ITC" Foreground="#FF301D17"/>
+            <TextBlock x:Name="txtHolyDay" Grid.Row="2" TextWrapping="NoWrap" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding HolyDay}" FontSize="40" FontFamily="Bradley Hand ITC" Foreground="#FF301D17"/>
+        </Grid>
+
+        <Grid Grid.Row="1" x:Name="grdCalendar" Loaded="GrdCalendar_OnLoaded">
+            <Grid.Background>
+                <ImageBrush ImageSource="/CampaignMaster;component/Resources/Images/Misc/eberron_calendar.jpg"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="{Binding IndicatorY}" Grid.Column="{Binding IndicatorX}" Opacity="0.4" Background="DodgerBlue"/>
+        </Grid>
+    </Grid>
+</UserControl>

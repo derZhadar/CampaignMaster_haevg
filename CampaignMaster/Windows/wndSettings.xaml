@@ -1,0 +1,94 @@
+﻿<Window x:Class="CampaignMaster.Windows.wndSettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CampaignMaster.Windows"
+            xmlns:sam.commands="clr-namespace:SamCorp.WPF.Commands;assembly=SamCorp.WPF"
+    xmlns:sam.Controls="clr-namespace:SamCorp.WPF.Controls;assembly=SamCorp.WPF"
+    xmlns:vm="clr-namespace:CampaignMaster.ViewModels"
+    Width="400"
+    Height="550" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent" Topmost="True">
+    <Window.DataContext>
+        <vm:vmDrawingBoard/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/CampaignMaster;component/Resources/Images/Backgrounds/MenuBackground.png"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="65"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,0" Text="Settings" Foreground="#333" FontFamily="Bradley Hand ITC" FontWeight="Bold" FontSize="32"/>
+        <Border Grid.Row="0" VerticalAlignment="Bottom" Margin="20,0,20,0" BorderThickness="0,0,0,2" BorderBrush="#FF301D17"/>
+        <sam.Controls:SamButton Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,0" CornerRadius="100" BorderThickness="0" Background="Transparent" HoverBackground="#B2CD5C5C" Content="&#xE115;" Foreground="#333" FontSize="32" FontFamily="Segoe UI Symbol" Click="ButtonCloseClick"/>
+
+        <Grid Grid.Row="1" Margin="25,15,20,35">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75*"/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Playermap.Scale.X" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="#FF301D17"/>
+                <sam.Controls:SamButton Grid.Column="1" Margin="3" CornerRadius="5" Background="{StaticResource PaperBrown}" BorderBrush="{StaticResource PaperWhite}" BorderThickness="2" FontFamily="Segoe UI Symbol" Foreground="{StaticResource PaperWhite}" Content="&#xE108;" FontSize="20" Tag="XD" Command="{Binding CommandChangePlayerMapScale}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+                <TextBlock Grid.Column="2" Text="{Binding PlayerMapScaleX, StringFormat={}{0:#,0.000}}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="#FF301D17"/>
+                <sam.Controls:SamButton Grid.Column="3" Margin="3" CornerRadius="5" Background="{StaticResource PaperBrown}" BorderBrush="{StaticResource PaperWhite}" BorderThickness="2" FontFamily="Segoe UI Symbol" Foreground="{StaticResource PaperWhite}" Content="&#xE109;" FontSize="20" Tag="XI" Command="{Binding CommandChangePlayerMapScale}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75*"/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Playermap.Scale.Y" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="#FF301D17"/>
+                <sam.Controls:SamButton Grid.Column="1" Margin="3" CornerRadius="5" Background="{StaticResource PaperBrown}" BorderBrush="{StaticResource PaperWhite}" BorderThickness="2" FontFamily="Segoe UI Symbol" Foreground="{StaticResource PaperWhite}" Content="&#xE108;" FontSize="20" Tag="YD" Command="{Binding CommandChangePlayerMapScale}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+                <TextBlock Grid.Column="2" Text="{Binding PlayerMapScaleY, StringFormat={}{0:#,0.000}}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="#FF301D17"/>
+                <sam.Controls:SamButton Grid.Column="3" Margin="3" CornerRadius="5" Background="{StaticResource PaperBrown}" BorderBrush="{StaticResource PaperWhite}" BorderThickness="2" FontFamily="Segoe UI Symbol" Foreground="{StaticResource PaperWhite}" Content="&#xE109;" FontSize="20" Tag="YI" Command="{Binding CommandChangePlayerMapScale}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+            </Grid>
+
+            <Border Grid.Row="2" VerticalAlignment="Center" Margin="20,0,20,0" BorderThickness="0,0,0,2" BorderBrush="#FF301D17"/>
+
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75*"/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Playermap.Transl.X" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="#FF301D17"/>
+                <sam.Controls:SamButton Grid.Column="1" Margin="3" CornerRadius="5" Background="{StaticResource PaperBrown}" BorderBrush="{StaticResource PaperWhite}" BorderThickness="2" FontFamily="Segoe UI Symbol" Foreground="{StaticResource PaperWhite}" Content="&#xE108;" FontSize="20" Tag="XD" Command="{Binding CommandChangePlayerMapTranslation}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+                <TextBlock Grid.Column="2" Text="{Binding PlayerMapTranslateX, StringFormat={}{0:#,0}}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="#FF301D17"/>
+                <sam.Controls:SamButton Grid.Column="3" Margin="3" CornerRadius="5" Background="{StaticResource PaperBrown}" BorderBrush="{StaticResource PaperWhite}" BorderThickness="2" FontFamily="Segoe UI Symbol" Foreground="{StaticResource PaperWhite}" Content="&#xE109;" FontSize="20" Tag="XI" Command="{Binding CommandChangePlayerMapTranslation}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+            </Grid>
+
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75*"/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="25*"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="Playermap.Transl.Y" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="#FF301D17"/>
+                <sam.Controls:SamButton Grid.Column="1" Margin="3" CornerRadius="5" Background="{StaticResource PaperBrown}" BorderBrush="{StaticResource PaperWhite}" BorderThickness="2" FontFamily="Segoe UI Symbol" Foreground="{StaticResource PaperWhite}" Content="&#xE108;" FontSize="20" Tag="YD" Command="{Binding CommandChangePlayerMapTranslation}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+                <TextBlock Grid.Column="2" Text="{Binding PlayerMapTranslateY, StringFormat={}{0:#,0}}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="#FF301D17"/>
+                <sam.Controls:SamButton Grid.Column="3" Margin="3" CornerRadius="5" Background="{StaticResource PaperBrown}" BorderBrush="{StaticResource PaperWhite}" BorderThickness="2" FontFamily="Segoe UI Symbol" Foreground="{StaticResource PaperWhite}" Content="&#xE109;" FontSize="20" Tag="YI" Command="{Binding CommandChangePlayerMapTranslation}" CommandParameter="{Binding RelativeSource={RelativeSource Self}}"/>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</Window>

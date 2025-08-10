@@ -1,0 +1,88 @@
+﻿<Window x:Class="CampaignMaster.Windows.wndStart"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CampaignMaster"
+        xmlns:sam.commands="clr-namespace:SamCorp.WPF.Commands;assembly=SamCorp.WPF"
+        xmlns:sam.Controls="clr-namespace:SamCorp.WPF.Controls;assembly=SamCorp.WPF"
+        xmlns:vm="clr-namespace:CampaignMaster.ViewModels"
+        Width="500"
+        Height="550" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent" Topmost="True">
+    <Window.DataContext>
+        <vm:vmStart/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/CampaignMaster;component/Resources/Images/Backgrounds/MenuBackground.png"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+        <sam.Controls:SamButton HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,10,10,0" Width="50" Height="50" Background="{StaticResource PaperBrown}" BorderThickness="3" BorderBrush="IndianRed" Foreground="IndianRed" CornerRadius="100" FontFamily="Segoe UI Symbol" Content="&#xE0A9;" FontSize="30" Command="sam.commands:GenericCommands.CommandExitApplication"/>
+        <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="Campaigns" Foreground="{StaticResource PaperBrown}" FontFamily="Bradley Hand ITC" FontWeight="Bold" FontSize="38"/>
+        <sam.Controls:SamButton HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,10,10,0" Width="50" Height="50" Background="{StaticResource PaperBrown}" BorderThickness="3" BorderBrush="SeaGreen" Foreground="SeaGreen" CornerRadius="100" FontFamily="Segoe UI Symbol" Content="&#xE0B6;" FontSize="30"/>
+        <Border Grid.Row="0" VerticalAlignment="Bottom" Margin="20,0,20,0" BorderThickness="0,0,0,2" BorderBrush="#FF301D17"/>
+
+        <ListView Grid.Row="1" Margin="25,0,25,0" Background="Transparent" BorderThickness="0" ItemsSource="{Binding Campaigns}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border x:Name="brdContent" BorderThickness="2" BorderBrush="Transparent">
+                                    <Grid Margin="5,0" Height="70">
+                                        <TextBlock VerticalAlignment="Center" Text="{Binding Name}" Foreground="{StaticResource PaperBrown}" FontFamily="Bradley Hand ITC" FontWeight="Bold" FontSize="43" HorizontalAlignment="Left" Background="Transparent"/>
+                                        <StackPanel x:Name="CampaignToolbar" Visibility="Hidden" Orientation="Horizontal" HorizontalAlignment="Right" >
+                                            <sam.Controls:SamButton HorizontalAlignment="Right" Margin="0,0,5,0" Width="60" Height="60" Background="{StaticResource PaperWhite}" BorderThickness="3" BorderBrush="Goldenrod" Foreground="Goldenrod" CornerRadius="100" FontFamily="Segoe UI Symbol" Content="&#xE29B;" FontSize="30" Command="{Binding CommandLoadCampaign}" Click="CampaignToolbarButtonClick"/>
+                                            <sam.Controls:SamButton HorizontalAlignment="Right" Margin="0,0,5,0" Width="60" Height="60" Background="{StaticResource PaperWhite}" BorderThickness="3" BorderBrush="SeaGreen" Foreground="SeaGreen" CornerRadius="100" FontFamily="Segoe UI Symbol" Content="&#xE1C2;" FontSize="30" Command="{Binding CommandEditCampaign}" Click="CampaignToolbarButtonClick"/>
+                                            <sam.Controls:SamButton IsEnabled="False" HorizontalAlignment="Right" Margin="0,0,5,0" Width="60" Height="60" Background="{StaticResource PaperWhite}" BorderThickness="3" BorderBrush="DarkRed" Foreground="DarkRed" CornerRadius="100" FontFamily="Segoe UI Symbol" Content="&#xE10A;" FontSize="30"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="CampaignToolbar" Property="Visibility" Value="Visible"/>
+                                        <Setter TargetName="brdContent" Property="BorderBrush" Value="DodgerBlue"/>
+                                        <Setter TargetName="brdContent" Property="Background" Value="#551E90FF"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+
+        <!--<Grid  Grid.Row="2" Margin="25,5, 10,0">
+            <Grid.Background>
+                <ImageBrush ImageSource="/CampaignMaster;component/Resources/Images/Misc/NewCampaign_Frame.png"/>
+            </Grid.Background>
+            <sam.Controls:SamButton Content="New Campaign" Foreground="#FF3F0900" FontFamily="Bradley Hand ITC" FontWeight="Bold" FontSize="34" Margin="25,14,26,14" Click="NewCampaign_Click" Background="Transparent" BorderBrush="Transparent" BorderThickness="0"/>
+        </Grid>
+        <Grid Grid.Row="3" Margin="27,5, 1,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="55*"/>
+                <ColumnDefinition Width="45*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" Margin="2,0,0,0">
+                <Grid.Background>
+                    <ImageBrush ImageSource="/CampaignMaster;component/Resources/Images/Misc/OpenCampaign_Frame.png"/>
+                </Grid.Background>
+                <sam.Controls:SamButton Content="Open" Foreground="#FF3F0900" FontFamily="Bradley Hand ITC" FontWeight="Bold" FontSize="34" Margin="21,11,21,28" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Command="{Binding CommandOpenCampaign}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"/>
+            </Grid>
+            <Grid Grid.Column="1" Margin="0,0,10,0">
+                <Grid.Background>
+                    <ImageBrush ImageSource="/CampaignMaster;component/Resources/Images/Misc/ExitApplication_Frame.png"/>
+                </Grid.Background>
+                <sam.Controls:SamButton Content="Exit" Foreground="#FF3F0900" FontFamily="Bradley Hand ITC" FontWeight="Bold" FontSize="34" Margin="17,11,17,28" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" Command="sam.commands:GenericCommands.CommandExitApplication"/>
+            </Grid>
+        </Grid>-->
+    </Grid>
+</Window>

@@ -1,0 +1,22 @@
+﻿<Window x:Class="CampaignMaster.Windows.wndColorPicker"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CampaignMaster.Windows"
+        xmlns:samctl="clr-namespace:SamCorp.WPF.Controls;assembly=SamCorp.WPF"
+        xmlns:wpf.Toolkit="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
+        mc:Ignorable="d"
+        Title="wndColorPicker" Width="720" Height="968" WindowStyle="None" AllowsTransparency="True" Background="Transparent" Topmost="True" WindowStartupLocation="CenterScreen">
+    <Viewbox>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <wpf.Toolkit:ColorCanvas Grid.Row="0" x:Name="pickColorPicker" Background="{StaticResource PaperWhite}" BorderThickness="0"/>
+            <samctl:SamButton Grid.Row="1" Margin="0,0,80,0" CornerRadius="0,0,0,10" Content="Ok" BorderThickness="0" Background="{StaticResource PaperWhite}" Foreground="{StaticResource PaperBrown}" FontSize="15" FontWeight="Bold" Click="OkClick"/>
+            <samctl:SamButton Grid.Row="1" HorizontalAlignment="Right" Width="80" CornerRadius="0,0,10,0" Content="Cancel" BorderThickness="0" Background="{StaticResource PaperWhite}" Foreground="{StaticResource PaperBrown}" FontSize="15" Click="CancelClick"/>
+        </Grid>
+    </Viewbox>
+</Window>

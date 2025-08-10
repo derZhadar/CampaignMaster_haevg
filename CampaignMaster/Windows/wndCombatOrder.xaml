@@ -1,0 +1,274 @@
+﻿<Window x:Class="CampaignMaster.Windows.wndCombatOrder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CampaignMaster.Windows"
+        xmlns:vm="clr-namespace:CampaignMaster.ViewModels"
+        xmlns:conv="clr-namespace:SamCorp.WPF.Converter;assembly=SamCorp.WPF"
+        xmlns:samctl="clr-namespace:SamCorp.WPF.Controls;assembly=SamCorp.WPF"
+        mc:Ignorable="d"
+        Title="wndCombatOrder" Width="672" SizeToContent="Height" WindowStyle="None" AllowsTransparency="True" Background="Transparent" Topmost="True" WindowStartupLocation="Manual" Left="864" Top="11.52">
+    <Window.DataContext>
+        <vm:vmCombatOrder/>
+    </Window.DataContext>
+    <Viewbox>
+        <Grid Width="672">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="117"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Border x:Name="brdBackground" Grid.Row="0" Grid.RowSpan="5" Opacity="0.7" Background="Black" BorderThickness="0" CornerRadius="50,50,0,0"/>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <samctl:SamButton Grid.Column="0" HorizontalAlignment="Left" Margin="10,0" Width="100" Height="100" CornerRadius="100" Background="Gainsboro" BorderBrush="Gray" BorderThickness="5" FontFamily="Segoe UI Symbol" Content="&#xE118;" FontSize="45" FontWeight="Bold" Command="{Binding CommandNextCharacter}"/>
+                <samctl:SamButton Grid.Column="1" Width="100" Height="100" CornerRadius="100" Background="Gainsboro" BorderBrush="Black" BorderThickness="5" Click="ButtonBase_OnClick" Command="{Binding CommandToggleCombatOrderVisibility}">
+                    <Image Margin="14" Source="/CampaignMaster;component/Resources/Images/Icons/battle.png"/>
+                </samctl:SamButton>
+                <Grid Grid.Column="1" Width="100" Height="100">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ShowActiveCombatant}" Value="False">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ActiveCombatant, Converter={conv:NotNullToBoolean}}" Value="False">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <Border CornerRadius="100" BorderThickness="5">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderBrush" Value="PapayaWhip" />
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <ImageBrush ImageSource="{Binding ActiveCombatant.CharacterImage}"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ActiveCombatant.IsNpc}" Value="True">
+                                        <Setter Property="BorderBrush" Value="DimGray" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                    <Button Background="Transparent" Opacity="0.6" BorderBrush="Transparent" BorderThickness="0" Click="ButtonBase_OnClick" Command="{Binding CommandToggleCombatOrderVisibility}">
+                        <Button.OpacityMask>
+                            <VisualBrush Visual="{Binding ElementName=brdMask}"/>
+                        </Button.OpacityMask>
+                    </Button>
+
+                    <Image Visibility="{Binding ActiveCombatant.IsPoisoned, Converter={conv:BooleanToVisibility}}" IsHitTestVisible="False" Source="/CampaignMaster;component/Resources/Images/Icons/Status_Poisoned.png" Opacity="0.5"/>
+                    <Image Visibility="{Binding ActiveCombatant.IsDazed, Converter={conv:BooleanToVisibility}}" IsHitTestVisible="False" Source="/CampaignMaster;component/Resources/Images/Icons/Status_Dazed.png"/>
+                    <Image Visibility="{Binding ActiveCombatant.IsEnchanted, Converter={conv:BooleanToVisibility}}" IsHitTestVisible="False" Source="/CampaignMaster;component/Resources/Images/Icons/Status_Enchanted.png"/>
+                    <Image Visibility="{Binding ActiveCombatant.IsBurning, Converter={conv:BooleanToVisibility}}" IsHitTestVisible="False" Source="/CampaignMaster;component/Resources/Images/Icons/Status_Burning.png" Opacity="0.5"/>
+
+                    <Grid Visibility="{Binding ActiveCombatant.IsDead, Converter={conv:BooleanToVisibility}}" IsHitTestVisible="False">
+                        <Border CornerRadius="100" Background="Red" Opacity="0.3" BorderBrush="Transparent" BorderThickness="0"/>
+                        <Polyline Stroke="Red" StrokeThickness="7" Points="0,0 100,100"/>
+                        <Polyline Stroke="Red" StrokeThickness="7" Points="100,0 0,100"/>
+                    </Grid>
+                </Grid>
+                <samctl:SamButton Grid.Column="2" HorizontalAlignment="Right" Margin="10,0" Width="100" Height="100" CornerRadius="100" Background="Gainsboro" BorderBrush="Gray" BorderThickness="5" FontFamily="Segoe UI Symbol" Content="&#xE117;" FontSize="45" FontWeight="Bold" Command="{Binding CommandClearCombatOrder}"/>
+            </Grid>
+
+
+            <ListView Grid.Row="1" Margin="5" Background="{x:Null}" ItemsSource="{Binding Characters}" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True" Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="100" Height="100" Margin="5,5">
+                            <Border x:Name="brdMask" CornerRadius="100" BorderBrush="{Binding Color}" BorderThickness="5">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding CharacterImage}"/>
+                                </Border.Background>
+                            </Border>
+                            <Button Background="Transparent" Opacity="0.6" BorderBrush="Transparent" BorderThickness="0" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:wndCombatOrder}, Path=DataContext.CommandAddCharacter}" CommandParameter="{Binding}">
+                                <Button.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=brdMask}"/>
+                                </Button.OpacityMask>
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <ContentPresenter/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+
+            <Grid Grid.Row="1" Visibility="Visible" HorizontalAlignment="Right" Width="100" Height="100" Margin="10">
+                <Border x:Name="brdMask" CornerRadius="100" BorderBrush="{Binding  Npcs[1].Color}" BorderThickness="5">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding Npcs[1].CharacterImage}"/>
+                    </Border.Background>
+                </Border>
+                <Button Background="Transparent" Opacity="0.6" BorderBrush="Transparent" BorderThickness="0" Click="ToggleNpcsClick">
+                    <Button.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=brdMask}"/>
+                    </Button.OpacityMask>
+                </Button>
+            </Grid>
+
+            <ListView x:Name="listNpcs" Grid.Row="2" Visibility="Collapsed" Margin="5,0,5,5" Background="{x:Null}" ItemsSource="{Binding Npcs}" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderThickness="0">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True" Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="100" Height="100" Margin="5,5">
+                            <Border x:Name="brdMask" CornerRadius="100" BorderBrush="{Binding Color}" BorderThickness="5">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding CharacterImage}"/>
+                                </Border.Background>
+                            </Border>
+                            <Button Background="Transparent" Opacity="0.6" BorderBrush="Transparent" BorderThickness="0" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:wndCombatOrder}, Path=DataContext.CommandAddCharacter}" CommandParameter="{Binding}">
+                                <Button.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=brdMask}"/>
+                                </Button.OpacityMask>
+                            </Button>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <ContentPresenter/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+
+            <Border Grid.Row="3" Margin="9" Background="PapayaWhip" CornerRadius="2"/>
+
+            <ItemsControl Grid.Row="4" Background="Transparent" ItemsSource="{Binding CombatOrder}" ScrollViewer.VerticalScrollBarVisibility="Hidden" BorderThickness="0">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid x:Name="grdContent" Height="100" Margin="5,5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0" Width="60" Height="60" Style="{StaticResource RoundButton}" Background="Gainsboro" BorderBrush="IndianRed" BorderThickness="5" FontFamily="Segoe UI Symbol" Content="&#xE0E5;" FontSize="35" FontWeight="Bold" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:wndCombatOrder}, Path=DataContext.CommandMoveCharacterDown}" CommandParameter="{Binding}"/>
+                            <Button Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,30,0" Width="60" Height="60" Style="{StaticResource RoundButton}" Background="Gainsboro" BorderBrush="DarkSeaGreen" BorderThickness="5" FontFamily="Segoe UI Symbol" Content="&#xE0E4;" FontSize="30" FontWeight="Bold" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:wndCombatOrder}, Path=DataContext.CommandMoveCharacterUp}" CommandParameter="{Binding}"/>
+                            <Button Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10,0" Width="60" Height="60" Style="{StaticResource RoundButton}" Background="DarkGray" BorderBrush="#333" BorderThickness="5" Visibility="{Binding IsNpc, Converter={conv:BooleanToVisibility}}" Command="{Binding CommandDamageCharacter}">
+                                <Image Margin="8" Source="/CampaignMaster;component/Resources/Images/Icons/icon_damage.png"/>
+                            </Button>
+
+                            <Border Grid.Column="1" x:Name="brdMask" CornerRadius="100" BorderBrush="{Binding Color}" BorderThickness="5">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding CharacterImage}"/>
+                                </Border.Background>
+                            </Border>
+                            <Border Grid.Column="1" x:Name="brdIsActiveCombatant" Visibility="Hidden" CornerRadius="100" Background="DodgerBlue" Opacity="0.3" BorderBrush="Transparent" BorderThickness="0"/>
+                            <Button Grid.Column="1" Background="Transparent" Opacity="0.6" BorderBrush="Transparent" BorderThickness="0" Command="{Binding CommandToggleDead}">
+                                <Button.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=brdMask}"/>
+                                </Button.OpacityMask>
+                            </Button>
+
+                            <!--<Button Grid.Column="2" Width="60" Height="60" Style="{StaticResource RoundButton}" Background="Gainsboro" BorderBrush="MediumSeaGreen" BorderThickness="5" FontFamily="Segoe UI Symbol" Content="&#xE0E4;" FontSize="35" FontWeight="Bold" Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=local:wndCombatOrder}, Path=DataContext.CommandMoveCharacterUp}" CommandParameter="{Binding}"/>-->
+
+                            <Grid Grid.Column="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Button Grid.Column="0" Grid.Row="0" Margin="10,0,0,0" Width="45" Height="45" Style="{StaticResource RoundButton}" Background="GreenYellow" BorderBrush="DarkOliveGreen" BorderThickness="5" Command="{Binding CommandTogglePoisoned}"/>
+                                <Button Grid.Column="1" Grid.Row="0" Margin="0,0,10,0" Width="45" Height="45" Style="{StaticResource RoundButton}" Background="LightYellow" BorderBrush="Yellow" BorderThickness="5" Command="{Binding CommandToggleDazed}"/>
+                                <Button Grid.Column="0" Grid.Row="1" Margin="10,0,0,0" Width="45" Height="45" Style="{StaticResource RoundButton}" Background="Plum" BorderBrush="Purple" BorderThickness="5" Command="{Binding CommandToggleEnchanted}"/>
+                                <Button Grid.Column="1" Grid.Row="1" Margin="0,0,10,0" Width="45" Height="45" Style="{StaticResource RoundButton}" Background="Orange" BorderBrush="OrangeRed" BorderThickness="5" Command="{Binding CommandToggleBurning}"/>
+
+                            </Grid>
+
+                            <Image Grid.Column="1" Visibility="{Binding IsPoisoned, Converter={conv:BooleanToVisibility}}" IsHitTestVisible="False" Source="/CampaignMaster;component/Resources/Images/Icons/Status_Poisoned.png" Opacity="0.5"/>
+                            <Image Grid.Column="1" Visibility="{Binding IsDazed, Converter={conv:BooleanToVisibility}}" IsHitTestVisible="False" Source="/CampaignMaster;component/Resources/Images/Icons/Status_Dazed.png"/>
+                            <Image Grid.Column="1" Visibility="{Binding IsEnchanted, Converter={conv:BooleanToVisibility}}" IsHitTestVisible="False" Source="/CampaignMaster;component/Resources/Images/Icons/Status_Enchanted.png"/>
+                            <Image Grid.Column="1" Visibility="{Binding IsBurning, Converter={conv:BooleanToVisibility}}" IsHitTestVisible="False" Source="/CampaignMaster;component/Resources/Images/Icons/Status_Burning.png" Opacity="0.5"/>
+
+                            <TextBlock Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="150,0,0,0" FontFamily="Consolas" FontWeight="Bold" FontSize="36" Foreground="Gainsboro" Text="{Binding Damage}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Damage}" Value="0">
+                                                <Setter Property="Visibility" Value="Hidden"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                            <Grid Grid.Column="1" x:Name="grdIsDead" Visibility="Hidden" IsHitTestVisible="False">
+                                <Border CornerRadius="100" Background="Red" Opacity="0.3" BorderBrush="Transparent" BorderThickness="0"/>
+                                <Polyline Stroke="Red" StrokeThickness="7" Points="0,0 100,100"/>
+                                <Polyline Stroke="Red" StrokeThickness="7" Points="100,0 0,100"/>
+                            </Grid>
+                        </Grid>
+                        <DataTemplate.Triggers>
+                            <DataTrigger Binding="{Binding IsActiveCombatant}" Value="True">
+                                <Setter Property="BorderBrush" Value="DodgerBlue" TargetName="brdMask" />
+                                <Setter Property="Background" Value="#551E90FF" TargetName="grdContent" />
+                                <Setter Property="Visibility" Value="Visible" TargetName="brdIsActiveCombatant" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsDead}" Value="True">
+                                <Setter Property="Visibility" Value="Visible" TargetName="grdIsDead" />
+                            </DataTrigger>
+                        </DataTemplate.Triggers>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <!--<ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="Focusable" Value="False"/>
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="BorderBrush" Value="DodgerBlue"/>
+                            <Setter Property="Background" Value="#FF67ADF1"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>-->
+            </ItemsControl>
+
+        </Grid>
+
+    </Viewbox>
+</Window>

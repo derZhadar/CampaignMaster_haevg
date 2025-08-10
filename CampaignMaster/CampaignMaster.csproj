@@ -1,0 +1,807 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+	<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>CampaignMaster.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\Fonts\Vecna.ttf" />
+    <None Remove="Resources\Fonts\VecnaBold.ttf" />
+    <None Remove="Resources\Fonts\VecnaBoldItali.ttf" />
+    <None Remove="Resources\Fonts\VecnaItalic.ttf" />
+    <None Remove="Resources\Images\Backgrounds\BoardBlank.jpg" />
+    <None Remove="Resources\Images\Backgrounds\ImagesBackground.png" />
+    <None Remove="Resources\Images\Backgrounds\MapImageBackground.png" />
+    <None Remove="Resources\Images\Backgrounds\MapsBackground.png" />
+    <None Remove="Resources\Images\Backgrounds\MenuBackground.png" />
+    <None Remove="Resources\Images\Backgrounds\NameGeneratorBackground.jpg" />
+    <None Remove="Resources\Images\Backgrounds\NewDrawingBoard.jpg" />
+    <None Remove="Resources\Images\Backgrounds\NewDrawingBoard_2.jpg" />
+    <None Remove="Resources\Images\Backgrounds\NewDrawingBoard_3.jpg" />
+    <None Remove="Resources\Images\Backgrounds\NotesBoard.jpg" />
+    <None Remove="Resources\Images\Backgrounds\OldPaper_Light.png" />
+    <None Remove="Resources\Images\Backgrounds\OldPaper_Light_2.png" />
+    <None Remove="Resources\Images\Floors\cave_2.jpg" />
+    <None Remove="Resources\Images\Floors\DungeonDark_1x1.png" />
+    <None Remove="Resources\Images\Floors\DungeonGreen\DungeonGreen_1.png" />
+    <None Remove="Resources\Images\Floors\DungeonGreen\DungeonGreen_2.png" />
+    <None Remove="Resources\Images\Floors\DungeonGreen\DungeonGreen_3.png" />
+    <None Remove="Resources\Images\Floors\DungeonGreen\DungeonGreen_4.png" />
+    <None Remove="Resources\Images\Floors\DungeonGreen\DungeonGreen_5.png" />
+    <None Remove="Resources\Images\Floors\DungeonGreen_1x1.png" />
+    <None Remove="Resources\Images\Floors\DungeonLight\DungeonLight_1.png" />
+    <None Remove="Resources\Images\Floors\DungeonLight\DungeonLight_2.png" />
+    <None Remove="Resources\Images\Floors\DungeonLight\DungeonLight_3.png" />
+    <None Remove="Resources\Images\Floors\DungeonLight\DungeonLight_4.png" />
+    <None Remove="Resources\Images\Floors\DungeonLight\DungeonLight_5.png" />
+    <None Remove="Resources\Images\Floors\DungeonLight\DungeonLight_6.png" />
+    <None Remove="Resources\Images\Floors\DungeonLight\DungeonLight_7.png" />
+    <None Remove="Resources\Images\Floors\DungeonLight\DungeonLight_8.png" />
+    <None Remove="Resources\Images\Floors\DungeonLight\DungeonLight_9.png" />
+    <None Remove="Resources\Images\Floors\DungeonLight_1x1.png" />
+    <None Remove="Resources\Images\Floors\DungeonDark\Dungeon_Dark_1.png" />
+    <None Remove="Resources\Images\Floors\DungeonDark\Dungeon_Dark_2.png" />
+    <None Remove="Resources\Images\Floors\DungeonDark\Dungeon_Dark_3.png" />
+    <None Remove="Resources\Images\Floors\DungeonDark\Dungeon_Dark_4.png" />
+    <None Remove="Resources\Images\Floors\DungeonDark\Dungeon_Dark_5.png" />
+    <None Remove="Resources\Images\Floors\DungeonDark\Dungeon_Dark_6.png" />
+    <None Remove="Resources\Images\Floors\DungeonDark\Dungeon_Dark_7.png" />
+    <None Remove="Resources\Images\Floors\DungeonDark\Dungeon_Dark_8.png" />
+    <None Remove="Resources\Images\Floors\DungeonDark\Dungeon_Dark_9.png" />
+    <None Remove="Resources\Images\Floors\SoilDark_1x1.png" />
+    <None Remove="Resources\Images\Floors\StoneDark\StoneDark_1.png" />
+    <None Remove="Resources\Images\Floors\StoneDark\StoneDark_2.png" />
+    <None Remove="Resources\Images\Floors\StoneDark\StoneDark_3.png" />
+    <None Remove="Resources\Images\Floors\StoneDark\StoneDark_4.png" />
+    <None Remove="Resources\Images\Floors\StoneDark\StoneDark_5.png" />
+    <None Remove="Resources\Images\Floors\StoneDark\StoneDark_6.png" />
+    <None Remove="Resources\Images\Floors\StoneDark\StoneDark_7.png" />
+    <None Remove="Resources\Images\Floors\StoneDark\StoneDark_8.png" />
+    <None Remove="Resources\Images\Floors\StoneDark_1x1.png" />
+    <None Remove="Resources\Images\Floors\WoodBirchSquare\WoodBirchSquare_1.png" />
+    <None Remove="Resources\Images\Floors\WoodBirchSquare_1x1.png" />
+    <None Remove="Resources\Images\Floors\WoodDiagonalLight\WoodDiagonalLight_1.png" />
+    <None Remove="Resources\Images\Floors\WoodDiagonalLight_1x1.png" />
+    <None Remove="Resources\Images\Floors\wood_1.png" />
+    <None Remove="Resources\Images\Floors\wood_2.png" />
+    <None Remove="Resources\Images\Floors\wood_3.png" />
+    <None Remove="Resources\Images\Icons\battle.png" />
+    <None Remove="Resources\Images\Icons\elf.png" />
+    <None Remove="Resources\Images\Icons\female.png" />
+    <None Remove="Resources\Images\Icons\female.svg" />
+    <None Remove="Resources\Images\Icons\gnome.png" />
+    <None Remove="Resources\Images\Icons\halfling.png" />
+    <None Remove="Resources\Images\Icons\icon_battle.png" />
+    <None Remove="Resources\Images\Icons\icon_campaign.png" />
+    <None Remove="Resources\Images\Icons\icon_city.png" />
+    <None Remove="Resources\Images\Icons\icon_damage.png" />
+    <None Remove="Resources\Images\Icons\icon_drawRoom.png" />
+    <None Remove="Resources\Images\Icons\icon_dungeon.png" />
+    <None Remove="Resources\Images\Icons\icon_forest.png" />
+    <None Remove="Resources\Images\Icons\icon_furniture.png" />
+    <None Remove="Resources\Images\Icons\icon_hourglass.png" />
+    <None Remove="Resources\Images\Icons\icon_object_snap.png" />
+    <None Remove="Resources\Images\Icons\icon_ocr.png" />
+    <None Remove="Resources\Images\Icons\icon_scary.png" />
+    <None Remove="Resources\Images\Icons\icon_selectObject.png" />
+    <None Remove="Resources\Images\Icons\icon_tavern.png" />
+    <None Remove="Resources\Images\Icons\male.png" />
+    <None Remove="Resources\Images\Icons\male.svg" />
+    <None Remove="Resources\Images\Icons\NpcPortrait.png" />
+    <None Remove="Resources\Images\Icons\orc.png" />
+    <None Remove="Resources\Images\Icons\Status_Burning.png" />
+    <None Remove="Resources\Images\Icons\Status_Dazed.png" />
+    <None Remove="Resources\Images\Icons\Status_Enchanted.png" />
+    <None Remove="Resources\Images\Icons\Status_Poisoned.png" />
+    <None Remove="Resources\Images\Icons\warforged.png" />
+    <None Remove="Resources\Images\Misc\AbilityFrame.png" />
+    <None Remove="Resources\Images\Misc\AbilityFrameLarge.png" />
+    <None Remove="Resources\Images\Misc\card_cave.jpg" />
+    <None Remove="Resources\Images\Misc\card_dungeon.jpg" />
+    <None Remove="Resources\Images\Misc\card_dwelling.jpg" />
+    <None Remove="Resources\Images\Misc\card_village.jpg" />
+    <None Remove="Resources\Images\Misc\CharacterPortraitDefault.png" />
+    <None Remove="Resources\Images\Misc\CharacterRoundFrame.png" />
+    <None Remove="Resources\Images\Misc\CharFrame.png" />
+    <None Remove="Resources\Images\Misc\CharFrame_3.png" />
+    <None Remove="Resources\Images\Misc\DoubleSmallFrame_Light.png" />
+    <None Remove="Resources\Images\Misc\eberron_calendar.jpg" />
+    <None Remove="Resources\Images\Misc\ExitApplication_Frame.png" />
+    <None Remove="Resources\Images\Misc\LocalCampaigns_Frame.png" />
+    <None Remove="Resources\Images\Misc\MiscFrame.png" />
+    <None Remove="Resources\Images\Misc\NewCampaign_Frame.png" />
+    <None Remove="Resources\Images\Misc\new_character_frame.png" />
+    <None Remove="Resources\Images\Misc\OpenCampaign_Frame.png" />
+    <None Remove="Resources\Images\Misc\SkillFrameLarge.png" />
+    <None Remove="Resources\Images\Misc\SmallFrame_Dark.png" />
+    <None Remove="Resources\Images\NPC\goblin_01.png" />
+    <None Remove="Resources\Images\NPC\goblin_02.png" />
+    <None Remove="Resources\Images\NPC\goblin_03.png" />
+    <None Remove="Resources\Images\NPC\goblin_04.png" />
+    <None Remove="Resources\Images\NPC\guard_01.png" />
+    <None Remove="Resources\Images\NPC\guard_02.png" />
+    <None Remove="Resources\Images\NPC\guard_03.png" />
+    <None Remove="Resources\Images\NPC\guard_04.png" />
+    <None Remove="Resources\Images\NPC\guard_05.png" />
+    <None Remove="Resources\Images\NPC\guard_06.png" />
+    <None Remove="Resources\Images\NPC\guard_07.png" />
+    <None Remove="Resources\Images\NPC\guard_08.png" />
+    <None Remove="Resources\Images\NPC\mage1_01.png" />
+    <None Remove="Resources\Images\NPC\mage2_01.png" />
+    <None Remove="Resources\Images\NPC\magegoblin_01.png" />
+    <None Remove="Resources\Images\NPC\pirate_01.png" />
+    <None Remove="Resources\Images\NPC\pirate_02.png" />
+    <None Remove="Resources\Images\NPC\pirate_03.png" />
+    <None Remove="Resources\Images\NPC\pirate_04.png" />
+    <None Remove="Resources\Images\NPC\pirate_05.png" />
+    <None Remove="Resources\Images\NPC\rat_01.png" />
+    <None Remove="Resources\Images\NPC\thug_01.png" />
+    <None Remove="Resources\Images\NPC\thug_02.png" />
+    <None Remove="Resources\Images\NPC\thug_03.png" />
+    <None Remove="Resources\Images\NPC\thug_04.png" />
+    <None Remove="Resources\Images\NPC\vampire_01.png" />
+    <None Remove="Resources\Images\NPC\vampire_02.png" />
+    <None Remove="Resources\Images\NPC\vampire_03.png" />
+    <None Remove="Resources\Images\NPC\vampire_04.png" />
+    <None Remove="Resources\Images\NPC\werewolf_01.png" />
+    <None Remove="Resources\Images\NPC\werewolf_02.png" />
+    <None Remove="Resources\Images\NPC\werewolf_03.png" />
+    <None Remove="Resources\Images\NPC\zombie_01.png" />
+    <None Remove="Resources\Images\NPC\zombie_02.png" />
+    <None Remove="Resources\Images\NPC\zombie_03.png" />
+    <None Remove="Resources\Images\NPC\zombie_04.png" />
+    <None Remove="Resources\Images\Objects\Additional\Armchair_Fabric_Purple_Wood_Red_F1_1x1.png" />
+    <None Remove="Resources\Images\Objects\Additional\Bar_Wood_Ashen_A2_1x1.png" />
+    <None Remove="Resources\Images\Objects\Additional\Bar_Wood_Ashen_A2_3x1.png" />
+    <None Remove="Resources\Images\Objects\Additional\Bar_Wood_Ashen_A4_2x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\CarpetLong\Carpet3Coal_1x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\CarpetLong\Carpet3Cream_1x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\CarpetLong\Carpet3Crimson_1x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\CarpetLong\Carpet3Forest_1x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\CarpetLong\Carpet3Leather_1x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\CarpetLong\Carpet3Ocean_1x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\CarpetLong_1x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\Carpet\Carpet2Coal_2x3.png" />
+    <None Remove="Resources\Images\Objects\Additional\Carpet\Carpet4Royal_2x3.png" />
+    <None Remove="Resources\Images\Objects\Additional\Carpet\Carpet5Cream_2x3.png" />
+    <None Remove="Resources\Images\Objects\Additional\Carpet\Carpet6Forest_2x3.png" />
+    <None Remove="Resources\Images\Objects\Additional\Couch_Fabric_Purple_Wood_Red_C1_2x1.png" />
+    <None Remove="Resources\Images\Objects\Additional\Double_Bed_Green_Ashen_A_DF_2x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\Drawer_Wood_Ashen_C_1x1.png" />
+    <None Remove="Resources\Images\Objects\Additional\Hay_Bedding_C2_Green_2x3.png" />
+    <None Remove="Resources\Images\Objects\Additional\Nightstand_Wood_Walnut_A1_1x1.png" />
+    <None Remove="Resources\Images\Objects\Additional\Shelf\Shelf_Wood_Ashen_E_2x1.png" />
+    <None Remove="Resources\Images\Objects\Additional\Shelf\Shelf_Wood_Light_C_2x1.png" />
+    <None Remove="Resources\Images\Objects\Additional\Shelf\Shelf_Wood_Walnut_C_2x1.png" />
+    <None Remove="Resources\Images\Objects\Additional\Shelf_1x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\Shelf_Wood_Ashen_C_1x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\Shelf_Wood_Ashen_C_2x1.png" />
+    <None Remove="Resources\Images\Objects\Additional\Single_Bed_Green_Ashen_A_AG_1x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\stairs_down_1x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\stairs_small_1x1.png" />
+    <None Remove="Resources\Images\Objects\Additional\stairs_up_1x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\Stairs_Wood_Walnut_C_1x1.png" />
+    <None Remove="Resources\Images\Objects\Additional\stone_stairs_down_1x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\stone_stairs_down_small_1x1.png" />
+    <None Remove="Resources\Images\Objects\Additional\stone_stairs_small_1x1.png" />
+    <None Remove="Resources\Images\Objects\Additional\stone_stairs_up_1x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\stone_stairs_up_small_1x1.png" />
+    <None Remove="Resources\Images\Objects\Additional\Table_Cover_Oval_Fabric_Red_B1_3x3.png" />
+    <None Remove="Resources\Images\Objects\Additional\Table_Cover_Round_Fabric_Blue_A1_2x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\Table_Fancy_HalfCircle_Wood_Light_A3_4x3.png" />
+    <None Remove="Resources\Images\Objects\Additional\Table_Fancy_Oval_Wood_Ashen_B1_3x3.png" />
+    <None Remove="Resources\Images\Objects\Additional\Table_Rectangle_with_chairs_2x3.png" />
+    <None Remove="Resources\Images\Objects\Additional\table_round_with_chairs_2x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\Table_Round_Wood_Ashen_B1_2x2.png" />
+    <None Remove="Resources\Images\Objects\Additional\Toilet_Wood_Light_E_1x1.png" />
+    <None Remove="Resources\Images\Objects\Barrel_Wood_Ashen_F_1x1.png" />
+    <None Remove="Resources\Images\Objects\Bed\bed_blue_1x2.png" />
+    <None Remove="Resources\Images\Objects\Bed\Single_Bed_Green_Ashen_A_CC_1x2.png" />
+    <None Remove="Resources\Images\Objects\bed_1x2.png" />
+    <None Remove="Resources\Images\Objects\Bookcase\Bookcase_Wood_Ashen_A_2x1.png" />
+    <None Remove="Resources\Images\Objects\Bookcase\Bookcase_Wood_Light_B_2x1.png" />
+    <None Remove="Resources\Images\Objects\Bookcase\Bookcase_Wood_Walnut_D_2x1.png" />
+    <None Remove="Resources\Images\Objects\Bookcase_2x1.png" />
+    <None Remove="Resources\Images\Objects\Bookcase_Wood_Ashen_Scrolls_B1_2x1.png" />
+    <None Remove="Resources\Images\Objects\Box_Lid_Wood_Ashen_A3_1x1.png" />
+    <None Remove="Resources\Images\Objects\chair.png" />
+    <None Remove="Resources\Images\Objects\Chest\Chest_Wood_Ashen_C_Rusty_1x1.png" />
+    <None Remove="Resources\Images\Objects\Chest\Chest_Wood_Ashen_D_1x1.png" />
+    <None Remove="Resources\Images\Objects\Chest\Chest_Wood_Light_F_1x1.png" />
+    <None Remove="Resources\Images\Objects\Chest_1x1.png" />
+    <None Remove="Resources\Images\Objects\Chest_Wood_Dark_B_1x1.png" />
+    <None Remove="Resources\Images\Objects\Custom\Barrel_Wood_Light_Wine_A1_1x1.png" />
+    <None Remove="Resources\Images\Objects\Custom\Barrel_Wood_Walnut_Water_Blue_A1_1x1.png" />
+    <None Remove="Resources\Images\Objects\Custom\BearPelt_2x2.png" />
+    <None Remove="Resources\Images\Objects\Custom\Carpet_1x2.png" />
+    <None Remove="Resources\Images\Objects\Custom\Rails_1x1.png" />
+    <None Remove="Resources\Images\Objects\Custom\Tree_4x4.png" />
+    <None Remove="Resources\Images\Objects\Custom\Tree_Green_B2_2x2.png" />
+    <None Remove="Resources\Images\Objects\Custom\Tree_Green_B4_5x5.png" />
+    <None Remove="Resources\Images\Objects\Custom\Tree_Green_C8_3x3.png" />
+    <None Remove="Resources\Images\Objects\Stool_Wood_Walnut_A_1x1.png" />
+    <None Remove="Resources\Images\Objects\Table_Rectangle_Wood_Ashen_J_1x2.png" />
+    <None Remove="Resources\Images\Objects\Table_Rectangle_Wood_Ashen_J_2x1.png" />
+    <None Remove="Resources\NameLists\elf.csv" />
+    <None Remove="Resources\NameLists\female.csv" />
+    <None Remove="Resources\NameLists\gnome.csv" />
+    <None Remove="Resources\NameLists\halfling.csv" />
+    <None Remove="Resources\NameLists\male.csv" />
+    <None Remove="Resources\NameLists\orc.csv" />
+    <None Remove="Resources\NameLists\warforged.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\Vecna.ttf" />
+    <Resource Include="Resources\Fonts\VecnaBold.ttf" />
+    <Resource Include="Resources\Fonts\VecnaBoldItali.ttf" />
+    <Resource Include="Resources\Fonts\VecnaItalic.ttf" />
+    <Resource Include="Resources\Images\Backgrounds\BoardBlank.jpg" />
+    <Resource Include="Resources\Images\Backgrounds\ImagesBackground.png" />
+    <Resource Include="Resources\Images\Backgrounds\MapImageBackground.png" />
+    <Resource Include="Resources\Images\Backgrounds\MapsBackground.png" />
+    <Resource Include="Resources\Images\Backgrounds\MenuBackground.png" />
+    <Resource Include="Resources\Images\Backgrounds\NameGeneratorBackground.jpg" />
+    <Resource Include="Resources\Images\Backgrounds\NewDrawingBoard.jpg" />
+    <Resource Include="Resources\Images\Backgrounds\NewDrawingBoard_2.jpg" />
+    <Resource Include="Resources\Images\Backgrounds\NewDrawingBoard_3.jpg" />
+    <Resource Include="Resources\Images\Backgrounds\NotesBoard.jpg" />
+    <Resource Include="Resources\Images\Backgrounds\OldPaper_Light.png" />
+    <Resource Include="Resources\Images\Backgrounds\OldPaper_Light_2.png" />
+    <Resource Include="Resources\Images\Icons\battle.png" />
+    <Resource Include="Resources\Images\Icons\elf.png" />
+    <Resource Include="Resources\Images\Icons\female.png" />
+    <Resource Include="Resources\Images\Icons\gnome.png" />
+    <Resource Include="Resources\Images\Icons\halfling.png" />
+    <Resource Include="Resources\Images\Icons\icon_battle.png" />
+    <Resource Include="Resources\Images\Icons\icon_campaign.png" />
+    <Resource Include="Resources\Images\Icons\icon_city.png" />
+    <Resource Include="Resources\Images\Icons\icon_damage.png" />
+    <Resource Include="Resources\Images\Icons\icon_drawRoom.png" />
+    <Resource Include="Resources\Images\Icons\icon_dungeon.png" />
+    <Resource Include="Resources\Images\Icons\icon_forest.png" />
+    <Resource Include="Resources\Images\Icons\icon_furniture.png" />
+    <Resource Include="Resources\Images\Icons\icon_hourglass.png" />
+    <Resource Include="Resources\Images\Icons\icon_object_snap.png" />
+    <Resource Include="Resources\Images\Icons\icon_ocr.png" />
+    <Resource Include="Resources\Images\Icons\icon_scary.png" />
+    <Resource Include="Resources\Images\Icons\icon_selectObject.png" />
+    <Resource Include="Resources\Images\Icons\icon_tavern.png" />
+    <Resource Include="Resources\Images\Icons\male.png" />
+    <Resource Include="Resources\Images\Icons\NpcPortrait.png" />
+    <Resource Include="Resources\Images\Icons\orc.png" />
+    <Resource Include="Resources\Images\Icons\select_map_scratch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\CampaignMaster.ico" />
+    <Resource Include="Resources\Images\Icons\Status_Burning.png" />
+    <Resource Include="Resources\Images\Icons\Status_Dazed.png" />
+    <Resource Include="Resources\Images\Icons\Status_Enchanted.png" />
+    <Resource Include="Resources\Images\Icons\Status_Poisoned.png" />
+    <Resource Include="Resources\Images\Icons\warforged.png" />
+    <Resource Include="Resources\Images\Misc\AbilityFrame.png" />
+    <Resource Include="Resources\Images\Misc\AbilityFrameLarge.png" />
+    <Resource Include="Resources\Images\Misc\card_cave.jpg" />
+    <Resource Include="Resources\Images\Misc\card_dungeon.jpg" />
+    <Resource Include="Resources\Images\Misc\card_dwelling.jpg" />
+    <Resource Include="Resources\Images\Misc\card_village.jpg" />
+    <Resource Include="Resources\Images\Icons\CharacterPortraitDefault.png" />
+    <Resource Include="Resources\Images\Misc\CharacterRoundFrame.png" />
+    <Resource Include="Resources\Images\Misc\CharFrame.png" />
+    <Resource Include="Resources\Images\Misc\CharFrame_3.png" />
+    <Resource Include="Resources\Images\Misc\DoubleSmallFrame_Light.png" />
+    <Resource Include="Resources\Images\Misc\eberron_calendar.jpg" />
+    <Resource Include="Resources\Images\Misc\ExitApplication_Frame.png" />
+    <Resource Include="Resources\Images\Misc\LocalCampaigns_Frame.png" />
+    <Resource Include="Resources\Images\Misc\MiscFrame.png" />
+    <Resource Include="Resources\Images\Misc\NewCampaign_Frame.png" />
+    <Resource Include="Resources\Images\Misc\new_character_frame.png" />
+    <Resource Include="Resources\Images\Misc\OpenCampaign_Frame.png" />
+    <Resource Include="Resources\Images\Misc\SkillFrameLarge.png" />
+    <Resource Include="Resources\Images\Misc\SmallFrame_Dark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Tiles\cave_1.jpg" />
+    <Resource Include="Resources\Images\Tiles\cave_2.jpg" />
+    <Resource Include="Resources\Images\Tiles\cave_3.jpg" />
+    <Resource Include="Resources\Images\Tiles\cobblestone_1.png" />
+    <Resource Include="Resources\Images\Tiles\cobblestone_2.jpg" />
+    <Resource Include="Resources\Images\Tiles\cobblestone_3.jpg" />
+    <Resource Include="Resources\Images\Tiles\forest_1.jpg" />
+    <Resource Include="Resources\Images\Tiles\forest_2.jpg" />
+    <Resource Include="Resources\Images\Tiles\forest_3.jpg" />
+    <Resource Include="Resources\Images\Tiles\forest_4.jpg" />
+    <Resource Include="Resources\Images\Tiles\grass_1.jpg" />
+    <Resource Include="Resources\Images\Tiles\grass_2.jpg" />
+    <Resource Include="Resources\Images\Tiles\tavern_1.jpg" />
+    <Resource Include="Resources\Images\Tiles\tavern_2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Backgrounds\Drawingboard_Paper.jpg" />
+    <Resource Include="Resources\Images\Backgrounds\Drawingboard_Wood.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="CampaignMaster.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Images\Floors\DungeonDark\Dungeon_Dark_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonDark\Dungeon_Dark_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonDark\Dungeon_Dark_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonDark\Dungeon_Dark_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonDark\Dungeon_Dark_5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonDark\Dungeon_Dark_6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonDark\Dungeon_Dark_7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonDark\Dungeon_Dark_8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonDark\Dungeon_Dark_9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonDark_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonGreen\DungeonGreen_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonGreen\DungeonGreen_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonGreen\DungeonGreen_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonGreen\DungeonGreen_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonGreen\DungeonGreen_5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonGreen_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonLight\DungeonLight_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonLight\DungeonLight_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonLight\DungeonLight_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonLight\DungeonLight_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonLight\DungeonLight_5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonLight\DungeonLight_6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonLight\DungeonLight_7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonLight\DungeonLight_8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\DungeonLight\DungeonLight_9.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\SoilDark_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\StoneDark\StoneDark_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\StoneDark\StoneDark_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\StoneDark\StoneDark_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\StoneDark\StoneDark_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\StoneDark\StoneDark_5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\StoneDark\StoneDark_6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\StoneDark\StoneDark_7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\StoneDark\StoneDark_8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\WoodBirchSquare\WoodBirchSquare_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\WoodBirchSquare_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\WoodDiagonalLight\WoodDiagonalLight_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\WoodDiagonalLight_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\wood_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Custom\Barrel_Wood_Light_Wine_A1_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Custom\Barrel_Wood_Walnut_Water_Blue_A1_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Custom\Rails_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Resources\Images\NPC\magegoblin_01.png" />
+    <EmbeddedResource Include="Resources\Images\NPC\goblin_02.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\goblin_03.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\goblin_04.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Content Include="Resources\Images\Objects\Additional\CarpetLong\Carpet3Coal_1x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\CarpetLong\Carpet3Cream_1x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\CarpetLong\Carpet3Crimson_1x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\CarpetLong\Carpet3Forest_1x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\CarpetLong\Carpet3Leather_1x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\CarpetLong\Carpet3Ocean_1x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\CarpetLong_1x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\Carpet\Carpet2Coal_2x3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\Carpet\Carpet4Royal_2x3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\Carpet\Carpet5Cream_2x3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\Carpet\Carpet6Forest_2x3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\Shelf\Shelf_Wood_Ashen_E_2x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\Shelf\Shelf_Wood_Light_C_2x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\Shelf\Shelf_Wood_Walnut_C_2x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\Shelf_1x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\stairs_small_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\stone_stairs_down_1x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\stone_stairs_down_small_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\stone_stairs_up_1x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\stone_stairs_up_small_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\Tree\Tree_2x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\Tree\Tree_5x5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\Tree\Tree_3x3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\Tree_4x4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Bed\bed_blue_1x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Bed\Single_Bed_Green_Ashen_A_CC_1x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Bookcase\Bookcase_Wood_Ashen_A_2x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Bookcase\Bookcase_Wood_Light_B_2x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Bookcase\Bookcase_Wood_Walnut_D_2x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Bookcase_2x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Chest\Chest_Wood_Ashen_C_Rusty_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Chest\Chest_Wood_Ashen_D_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Chest\Chest_Wood_Light_F_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Chest_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\BearPelt_2x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\Carpet_2x3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Images\NPC\goblin_01.png" />
+    <EmbeddedResource Include="Resources\Images\NPC\guard_01.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\guard_02.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\guard_03.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\guard_04.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\guard_05.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\guard_06.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\guard_07.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\guard_08.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\mage1_01.png" />
+    <EmbeddedResource Include="Resources\Images\NPC\mage2_01.png" />
+    <EmbeddedResource Include="Resources\Images\NPC\pirate_01.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\pirate_02.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\pirate_03.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\pirate_04.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\pirate_05.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\rat_01.png" />
+    <EmbeddedResource Include="Resources\Images\NPC\thug_01.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\thug_02.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\thug_03.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\thug_04.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Images\NPC\vampire_01.png" />
+    <EmbeddedResource Include="Resources\Images\NPC\vampire_02.png" />
+    <EmbeddedResource Include="Resources\Images\NPC\vampire_03.png" />
+    <EmbeddedResource Include="Resources\Images\NPC\vampire_04.png" />
+    <EmbeddedResource Include="Resources\Images\NPC\werewolf_01.png" />
+    <EmbeddedResource Include="Resources\Images\NPC\werewolf_02.png" />
+    <EmbeddedResource Include="Resources\Images\NPC\werewolf_03.png" />
+    <EmbeddedResource Include="Resources\Images\NPC\zombie_01.png" />
+    <EmbeddedResource Include="Resources\Images\NPC\zombie_02.png" />
+    <EmbeddedResource Include="Resources\Images\NPC\zombie_03.png" />
+    <EmbeddedResource Include="Resources\Images\NPC\zombie_04.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Backgrounds\Khorvaire.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\ink_free.png" />
+    <Resource Include="Resources\Images\Icons\ink_line.png" />
+    <Resource Include="Resources\Images\Icons\ink_polygon.png" />
+    <Resource Include="Resources\Images\Icons\ink_scratch.png" />
+    <Resource Include="Resources\Images\Icons\ink_shape.png" />
+    <Resource Include="Resources\Images\Icons\ink_snap.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Misc\splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\select_image.png" />
+    <Resource Include="Resources\Images\Icons\select_map.png" />
+    <Resource Include="Resources\Images\Icons\select_scratch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\icon_grid_size.png" />
+    <Resource Include="Resources\Images\Icons\icon_opacity.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icons\icon_define_object.png" />
+    <Resource Include="Resources\Images\Icons\icon_object.png" />
+    <Content Include="Resources\Images\Floors\DungeonLight_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\StoneDark_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\wood_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Floors\wood_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Custom\Double_Bed_Green_Ashen_A_DF_2x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Custom\Hay_Bedding_C2_Green_2x3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\Nightstand_Wood_Walnut_A1_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Bed\Single_Bed_Green_Ashen_A_AG_1x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\stairs_down_1x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\stairs_up_1x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\Table_Fancy_Oval_Wood_Ashen_B1_3x3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\Table_rectangle_with_chairs_2x3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\Table_round_with_chairs_2x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Additional\Table_Round_Wood_Ashen_B1_2x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Custom\Toilet_Wood_Light_E_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Barrel_Wood_Ashen_F_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Bed_1x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Box_Lid_Wood_Ashen_A3_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\chair.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Stool_Wood_Walnut_A_1x1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\Objects\Table_Rectangle_Wood_Ashen_J_1x2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\battle.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\city.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\dungeon.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\forest.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\scary.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\tavern.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Resources\NameLists\elf.csv" />
+    <EmbeddedResource Include="Resources\NameLists\female.csv" />
+    <EmbeddedResource Include="Resources\NameLists\gnome.csv" />
+    <EmbeddedResource Include="Resources\NameLists\halfling.csv" />
+    <EmbeddedResource Include="Resources\NameLists\male.csv" />
+    <EmbeddedResource Include="Resources\NameLists\orc.csv" />
+    <EmbeddedResource Include="Resources\NameLists\warforged.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.7.25104.5739" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.355802">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\Sounds\Battle\" />
+    <Folder Include="Resources\Sounds\City\" />
+    <Folder Include="Resources\Sounds\Forest\" />
+    <Folder Include="Resources\Sounds\Tavern\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Ink">
+      <HintPath>..\..\..\..\Program Files\Common Files\microsoft shared\ink\Microsoft.Ink.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
