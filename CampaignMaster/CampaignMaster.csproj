@@ -800,6 +800,9 @@
     <Folder Include="Resources\Sounds\Tavern\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\SamCorp.WPF_haevg\SamCorp.WPF.csproj" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="Microsoft.Ink">
       <HintPath>..\..\..\..\Program Files\Common Files\microsoft shared\ink\Microsoft.Ink.dll</HintPath>
     </Reference>
